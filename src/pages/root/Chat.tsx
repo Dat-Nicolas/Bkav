@@ -19,12 +19,10 @@ export default function Chat() {
     "⚽", "🏀", "🎸", "🎤", "🎮", "🚗", "✈️", "🚀", "🏖️", "🏔️",
   ];
 
-  // Mở/đóng modal emoji
   const toggleEmojiModal = () => {
     setIsEmojiModalOpen(!isEmojiModalOpen);
   };
 
-  // Thêm emoji vào input
   const handleEmojiSelect = (emoji) => {
     const input = inputRef.current;
     const startPos = input.selectionStart || 0;
@@ -34,7 +32,6 @@ export default function Chat() {
     setMessage(newValue);
     setIsEmojiModalOpen(false);
 
-    // Đặt lại focus và con trỏ sau emoji
     setTimeout(() => {
       input.focus();
       input.selectionStart = startPos + emoji.length;
@@ -42,7 +39,6 @@ export default function Chat() {
     }, 0);
   };
 
-  // Đóng modal khi nhấp ra ngoài
   const handleClickOutside = (e) => {
     if (
       isEmojiModalOpen &&
@@ -55,7 +51,7 @@ export default function Chat() {
 
   return (
     <div
-      className="fixed bottom-0 left-[350px] max-md:left-0 right-0 bg-white"
+      className="fixed bottom-0 left-[350px] max-md:left-[90px] right-0 bg-white"
       onClick={handleClickOutside}
     >
       <ChatContent />
@@ -70,7 +66,7 @@ export default function Chat() {
             value={message}
             onChange={(e) => setMessage(e.target.value)}
             ref={inputRef}
-            className="w-full overflow-hi p-2 border rounded-full bg-[#DBDDE1] focus:outline-none focus:ring-1 focus:ring-blue-500"
+            className="w-full overflow-hidden p-2 border rounded-full bg-[#DBDDE1] focus:outline-none focus:ring-1 focus:ring-blue-500"
           />
           <button
             className="absolute right-3 top-1/2 transform -translate-y-1/2 emoji-icon"
@@ -78,8 +74,7 @@ export default function Chat() {
           >
             <EmojiIcon />
           </button>
-
-          {/* Modal Emoji */}
+         
           {isEmojiModalOpen && (
             <div className="absolute bottom-12 right-0 bg-white border border-gray-200 rounded-lg shadow-lg p-3 grid grid-cols-5 gap-2 max-h-[200px] overflow-y-auto emoji-modal z-10">
               {emojis.map((emoji, index) => (
@@ -93,6 +88,7 @@ export default function Chat() {
               ))}
             </div>
           )}
+              
         </div>
 
         <div className="absolute bg-white right-4 bottom-16 rounded-2xl p-1">

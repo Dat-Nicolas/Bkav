@@ -1,12 +1,16 @@
+body {
+  font-family: 'Roboto', sans-serif;
+}
+
 :root {
-  font-family: "Sora";
+  font-family: "Roboto";
   font-size: 15px;
   scroll-behavior: smooth;
 
 }
 
 .logo {
-  font-family: "Sora";
+  font-family: "Roboto";
 }
 
 input,

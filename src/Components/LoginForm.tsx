@@ -7,14 +7,14 @@ import { Link } from "react-router";
 import { LOCALE_MESSAGE_IDS } from "../libs/src/message";
 import { FormattedMessage, useIntl } from "react-intl";
 
-// const onFinish = (values) => {
-//   console.log("Received values:", values);
-// };
+const onFinish = (values) => {
+  console.log("Received values:", values);
+};
 
 export default function LoginForm() {
   const intl = useIntl();
   return (
-    <div className="sm:w-150 min-w-[600px] sm:h-175 h-full w-full max-sm:px-3 flex flex-col gap-[30px]">
+    <div className="sm:w-150 max-sm:max-w-screen sm:h-175 h-full w-full max-sm:px-3 flex flex-col gap-[30px]">
       <p className="text-[48px] font-normal leading text-center text-12">
         <FormattedMessage id={LOCALE_MESSAGE_IDS.login} />
       </p>
@@ -22,7 +22,7 @@ export default function LoginForm() {
         name="login"
         className="flex flex-col gap-5"
         initialValues={{ remember: true }}
-        // onFinish={onFinish}
+        onFinish={onFinish}
       >
         <div className="w-full h-20">
           <Form.Item
@@ -39,6 +39,8 @@ export default function LoginForm() {
           >
             <Input
               type="text"
+            style={{backgroundColor:"#e8f0fe"}}
+
               className="w-full h-15"
               tabIndex={1}
               placeholder={intl.formatMessage({
@@ -64,6 +66,8 @@ export default function LoginForm() {
           >
             <Input.Password
             className="w-full h-15"
+            style={{backgroundColor:"#e8f0fe"}}
+
               tabIndex={1}
               placeholder={intl.formatMessage({
                 id: LOCALE_MESSAGE_IDS.input_placeholder_password,
@@ -110,13 +114,13 @@ export default function LoginForm() {
             <div className="w-full flex-1 flex h-[1px] border-t-1 border-[#DFDFDF]"></div>
           </div>
           <div className="flex w-full justify-center gap-[25px]">
-            <div className="flex justify-center items-center border border-[#DDDFDD] rounded-[10px] w-[117px] h-[60px] bg-[#F6F6F6]">
+            <div className="flex justify-center items-center border border-[#DDDFDD] rounded-[10px] w-[117px] h-[60px] bg-[#F6F6F6] cursor-pointer">
               <img src={google} alt="Google" className="w-7 h-7" />
             </div>
-            <div className="flex justify-center items-center border border-[#DDDFDD] rounded-[10px] w-[117px] h-[60px] bg-[#F6F6F6]">
+            <div className="flex justify-center items-center border border-[#DDDFDD] rounded-[10px] w-[117px] h-[60px] bg-[#F6F6F6] cursor-pointer">
               <img src={apple} alt="Apple" className="w-7 h-7" />
             </div>
-            <div className="flex justify-center items-center border border-[#DDDFDD] rounded-[10px] w-[117px] h-[60px] bg-[#F6F6F6]">
+            <div className="flex justify-center items-center border border-[#DDDFDD] rounded-[10px] w-[117px] h-[60px] bg-[#F6F6F6] cursor-pointer">
               <img src={facebook} alt="Facebook" className="w-7 h-7" />
             </div>
           </div>

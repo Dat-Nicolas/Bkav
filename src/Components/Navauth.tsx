@@ -10,7 +10,7 @@ export default function Navauth() {
   const { language, setLanguage } = useLanguage();
   return (
     <div className="flex justify-center">
-      <div className="flex items-center justify-center w-85  h-8 gap-4">
+      <div className="flex items-center justify-center w-85 h-8 gap-4">
         {/* Language Selector */}
         <div className="flex items-center max-w-26  h-4">
           <Select
@@ -35,11 +35,10 @@ export default function Navauth() {
           {({ isActive }) => (
             <>
               <p>
-                {" "}
                 <FormattedMessage id={LOCALE_MESSAGE_IDS.login} />
               </p>
               {isActive && (
-                <div className="w-9 border-b-2 border-[#4461F2] "></div>
+                <div className="w-[50%]  border-b-2 border-[#4461F2] "></div>
               )}
             </>
           )}
@@ -57,14 +56,12 @@ export default function Navauth() {
           {({ isActive }) => (
             <>
               <p>
-                {" "}
                 <p>
-                  {" "}
                   <FormattedMessage id={LOCALE_MESSAGE_IDS.register} />
                 </p>
               </p>
               {isActive && (
-                <div className="w-9 border-b-2 border-[#4461F2]"></div>
+                <div className="w-[50%]  border-b-2 border-[#4461F2]"></div>
               )}
             </>
           )}

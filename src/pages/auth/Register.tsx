@@ -25,7 +25,7 @@ export default function RegisterPage()  {
         <div className="w-full max-w-[500px]">
           <Navauth />
         </div>
-        <div className="w-full max-w-[550px]">
+        <div className="w-full max-w-[500px]">
           <RegisterForm />
         </div>
       </div>
