@@ -114,13 +114,13 @@ export default function LoginForm() {
             <div className="w-full flex-1 flex h-[1px] border-t-1 border-[#DFDFDF]"></div>
           </div>
           <div className="flex w-full justify-center gap-[25px]">
-            <div className="flex justify-center items-center border border-[#DDDFDD] rounded-[10px] w-[117px] h-[60px] bg-[#F6F6F6] cursor-pointer">
+            <div className="flex justify-center items-center border border-[#DDDFDD] rounded-[10px] w-[117px] h-[60px] bg-[#F6F6F6] hover:bg-[#FFFFFF] hover:border-none hover:shadow-[0_0_10px_rgba(0,0,0,0.13)] cursor-pointer">
               <img src={google} alt="Google" className="w-7 h-7" />
             </div>
-            <div className="flex justify-center items-center border border-[#DDDFDD] rounded-[10px] w-[117px] h-[60px] bg-[#F6F6F6] cursor-pointer">
+            <div className="flex justify-center items-center border border-[#DDDFDD] rounded-[10px] w-[117px] h-[60px] bg-[#F6F6F6] hover:bg-[#FFFFFF] hover:border-none hover:shadow-[0_0_10px_rgba(0,0,0,0.13)] cursor-pointer">
               <img src={apple} alt="Apple" className="w-7 h-7" />
             </div>
-            <div className="flex justify-center items-center border border-[#DDDFDD] rounded-[10px] w-[117px] h-[60px] bg-[#F6F6F6] cursor-pointer">
+            <div className="flex justify-center items-center border border-[#DDDFDD] rounded-[10px] w-[117px] h-[60px] bg-[#F6F6F6] hover:bg-[#FFFFFF] hover:border-none hover:shadow-[0_0_10px_rgba(0,0,0,0.13)] cursor-pointer">
               <img src={facebook} alt="Facebook" className="w-7 h-7" />
             </div>
           </div>

@@ -1,5 +1,5 @@
 export const chatList = [
-  { id: 1, name: "Elon Musk", lastMessage: "Nhắn tin hơi lâu nha...", time: "10:45", avata: "https://hoanghamobile.com/tin-tuc/wp-content/uploads/2023/07/anh-dep-thien-nhien-2-1.jpg" },
+  { id: 1, name: "Elon Musk", lastMessage: "Nhắn tin hơi lâu nhaaaaaaaaaaaaaaaaaaaaaaaaaaaaa...", time: "10:45", avata: "https://hoanghamobile.com/tin-tuc/wp-content/uploads/2023/07/anh-dep-thien-nhien-2-1.jpg" },
   { id: 2, name: "Nguyễn Hà Đông", lastMessage: "Chào cậu", time: "9:30", avata: "https://images2.thanhnien.vn/528068263637045248/2024/1/25/e093e9cfc9027d6a142358d24d2ee350-65a11ac2af785880-17061562929701875684912.jpg" },
   { id: 3, name: "Nhí Nhố", lastMessage: "Sắp tới anh", time: "Yesterday", avata: "https://images2.thanhnien.vn/528068263637045248/2024/1/25/e093e9cfc9027d6a142358d24d2ee350-65a11ac2af785880-17061562929701875684912.jpg" },
   { id: 4, name: "Wonder Woman", lastMessage: "Chào cậu", time: "12/10/21", avata: "https://images2.thanhnien.vn/528068263637045248/2024/1/25/e093e9cfc9027d6a142358d24d2ee350-65a11ac2af785880-17061562929701875684912.jpg" },
@@ -14,13 +14,15 @@ export const chatList = [
 ];
 
 export const messages = [
-  { id: 1, user: "Elon Musk", content: "Nhắn tin hơi lâu nha...", time: "10:45", isSent: false },
+  { id: 1, user: "Elon Musk", content: "Nhắn tin hơi lâu nhaaaaaaaaaaaaaaaaaaaaaaa...", time: "10:45", isSent: false },
   { id: 1, user: "Elon Musk", content: "Đang ở SpaceX, bận lắm!", time: "10:47", isSent: false, image: "https://cdn.pixabay.com/photo/2023/05/28/03/34/flower-8022736_1280.jpg" },
   { id: 1, user: "Elon Musk", content: "Video phóng tên lửa mới đây!", time: "10:48", isSent: false, video: "https://videos.pexels.com/video-files/855689/855689-hd_1920_1080_30fps.mp4" },
-  { id: 1, user: "You", content: "Haha, lâu đáp thì có :))", time: "10:49", isSent: true },
-  { id: 1, user: "You", content: "Rocket mới nhìn đỉnh quá!", time: "10:50", isSent: true, image: "https://images.unsplash.com/photo-1446941611757-91d2c3bd3d45?q=80&w=1902&auto=format&fit=crop" },
+  { id: 1, user: "You", content: "Haha, lâu đáp thì có aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa:))", time: "10:49", isSent: true },
+  { id: 1, user: "You", content: "Rocket mới nhìn đỉnh quáaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaàefwefewfwefrewgrg4gh54h!", time: "10:50", isSent: true, image: "https://images.unsplash.com/photo-1446941611757-91d2c3bd3d45?q=80&w=1902&auto=format&fit=crop" },
   { id: 1, user: "You", content: "Clip này từ sao Hỏa hả?", time: "10:51", isSent: true, video: "https://videos.pexels.com/video-files/1721308/1721308-hd_1920_1080_30fps.mp4" },
   { id: 1, user: "You", time: "10:51", isSent: true, link: "https://www.facebook.com/" , content:"in4 fb đây nhé " } ,
+  { id: 1, user: "Elon Musk", content: "Nhắn tin hơi lâu nhaaaaaaaaaaaaaaaaaaaaaaa...", time: "10:45", isSent: false },
+
 
   // { id: 2, user: "Nguyễn Hà Đông", content: "Chào cậu", time: "9:30", isSent: false },
   // { id: 2, user: "Nguyễn Hà Đông", content: "Game mới đang phát triển nè!", time: "9:32", isSent: false, image: "https://images2.thanhnien.vn/528068263637045248/2024/1/25/e093e9cfc9027d6a142358d24d2ee350-65a11ac2af785880-17061562929701875684912.jpg" },

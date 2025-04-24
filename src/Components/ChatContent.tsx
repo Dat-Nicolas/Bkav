@@ -9,6 +9,7 @@ import TrashIcon from "./icons/TrashIcon";
 import BackIcon from "./icons/BackIcon";
 import EditIcon from "./icons/EditIcon";
 import PinIcon from "./icons/PinIcon";
+import DoubleDoneIcon from "./icons/DoubleDoneIcon";
 
 export default function ChatContent() {
   const { id } = useParams();
@@ -17,6 +18,7 @@ export default function ChatContent() {
   const inputRef = useRef(null);
   const selectedUser = chatList.find((chat) => chat.id === parseInt(id));
   const userMessages = messages.filter((msg) => msg.id === parseInt(id));
+  const [selectedEmojis, setSelectedEmojis] = useState({});
 
   const emojiIcons = ["😊", "😂", "👍", "😍", "😢", "😡"];
 
@@ -27,29 +29,36 @@ export default function ChatContent() {
     setOpenOptionIndex((prev) => (prev === index ? null : index));
   };
 
-  const handleEmojiSelect = ( emoji ,e) => {
-    console.log("Selected emoji:", emoji);
-    e.stopPropagation(); 
-    setOpenEmojiIndex(null);
-  };
-  const handleOptionSelect = ( e) => {
-    e.stopPropagation(); 
+  const handleEmojiSelect = (emoji, e, index) => {
+    e.stopPropagation();
+    setSelectedEmojis((prev) => ({
+      ...prev,
+      [index]: emoji,
+    }));
     setOpenEmojiIndex(null);
   };
 
   const handleClickOutside = (e) => {
     if (
-      isOpenEmojiIndex  &&
+      isOpenEmojiIndex !== null &&
       !e.target.closest(".emoji-modal") &&
       !e.target.closest(".emoji-icon")
     ) {
-      setOpenEmojiIndex(false);
+      setOpenEmojiIndex(null);
+    }
+
+    if (
+      isOpenOptionIndex !== null &&
+      !e.target.closest(".option-icon") &&
+      !e.target.closest(".option-modal")
+    ) {
+      setOpenOptionIndex(null);
     }
   };
 
   return (
     <div
-      className="flex-1 w-full h-full flex flex-col bg-gray-100"
+      className="flex-1 w-full h-[615px] flex flex-col bg-gray-100 overflow-y-auto"
       onClick={handleClickOutside}
     >
       {/* Chat Header */}
@@ -77,7 +86,7 @@ export default function ChatContent() {
       </div>
 
       {/* Chat Messages */}
-      <div className="flex-1  p-4 pt-16 overflow-y-auto">
+      <div className="flex-1 p-4 pt-16 overflow-y-auto">
         {userMessages.length > 0 ? (
           userMessages.map((msg, index) => (
             <div
@@ -92,25 +101,84 @@ export default function ChatContent() {
                 } w-full`}
               >
                 <div
-                  className={`flex items-center gap-1 ${
+                  className={`flex items-center gap-1 w-full ${
                     msg.isSent ? "justify-end" : "justify-start"
-                  } w-full`}
+                  }`}
                 >
                   {!msg.isSent && (
                     <img
                       src={selectedUser?.avata}
                       alt={msg.user}
-                      className="w-8 h-8  rounded-full mr-2 mb-2 self-end"
+                      className="w-8 h-8 rounded-full mr-2 mb-2 self-end"
                     />
                   )}
+
+                  {msg.isSent && (
+                    <div className="relative w-[50px] mr-3 flex gap-2 items-center">
+                      <div
+                        onClick={() => toggleEmojiModal(index)}
+                        className="emoji-icon relative"
+                      >
+                        <EmojiIcon />
+                        {isOpenEmojiIndex === index && (
+                          <div className="absolute w-60 top-[-50px] left-[-20px] bg-white border border-gray-200 rounded-lg shadow-lg grid grid-cols-6 emoji-modal z-10">
+                            {emojiIcons.map((emoji, emojiIndex) => (
+                              <button
+                                key={emojiIndex}
+                                className="text-2xl w-10 h-10 hover:bg-[#669FFF] rounded p-1 cursor-pointer"
+                                onClick={(e) =>
+                                  handleEmojiSelect(emoji, e, index)
+                                }
+                              >
+                                {emoji}
+                              </button>
+                            ))}
+                          </div>
+                        )}
+                      </div>
+
+                      <div
+                        onClick={() => toggleOptionModal(index)}
+                        className="option-icon"
+                      >
+                        <OptionIcon />
+                        {isOpenOptionIndex === index && (
+                          <div className="absolute top-0 md:left-[-150px]  left-[-135px] rounded-xl bg-gray-100 w-35 shadow-[0_0_10px_rgba(0,0,0,0.2)] z-10">
+                            <div className="flex items-center gap-2 px-2 py-1 hover:bg-gray-200">
+                              <BackIcon />
+                              Trả lời
+                            </div>
+                            <div className="flex items-center gap-2 px-2 py-1 hover:bg-gray-200">
+                              <EditIcon />
+                              Chỉnh sửa
+                            </div>
+                            <div className="flex items-center gap-2 px-2 py-1 hover:bg-gray-200">
+                              <PinIcon />
+                              Ghim
+                            </div>
+                            <div className="flex items-center gap-2 px-2 py-1 hover:bg-gray-200 text-red-500">
+                              <TrashIcon />
+                              Xóa tin nhắn
+                            </div>
+                          </div>
+                        )}
+                      </div>
+                    </div>
+                  )}
+
                   <div
-                    className={`max-w-[70%] p-3 rounded-2xl ${
+                    className={`max-w-[50%] relative p-3 rounded-2xl ${
                       msg.isSent
                         ? "bg-blue-500 text-white"
                         : "bg-white text-gray-800"
                     } ${msg.isSent ? "text-right" : "text-left"}`}
                   >
-                    {msg.content && <p>{msg.content}</p>}
+                    {selectedEmojis[index] && (
+                      <div className="absolute right-0 bottom-[-12px] text-xl">
+                        {selectedEmojis[index]}
+                      </div>
+                    )}
+                    {msg.content && <p className="truncate">{msg.content}</p>}
                     {msg.image && (
                       <img
                         src={msg.image}
@@ -130,7 +198,7 @@ export default function ChatContent() {
                         href={msg.link}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className={`mt-2  max-w-[200px] block w-[150px]${
+                        className={`mt-2 truncate max-w-[200px] block w-[150px] ${
                           msg.isSent ? "text-blue-200" : "text-blue-500"
                         } underline`}
                       >
@@ -138,21 +206,23 @@ export default function ChatContent() {
                       </a>
                     )}
                   </div>
-                <div className="relative w-[50px] ml-3 flex gap-2 items-center">
+
+                  {!msg.isSent && (
+                    <div className="relative w-[50px] ml-3 flex gap-2 items-center">
                       <div
-                        key={index}
-                        
                         onClick={() => toggleEmojiModal(index)}
+                        className="emoji-icon relative"
                       >
                         <EmojiIcon />
-  
                         {isOpenEmojiIndex === index && (
                           <div className="absolute w-60 top-[-50px] right-[-20px] bg-white border border-gray-200 rounded-lg shadow-lg grid grid-cols-6 emoji-modal z-10">
                             {emojiIcons.map((emoji, emojiIndex) => (
                               <button
                                 key={emojiIndex}
-                                className="text-2xl w-10 h-10 hover:bg-gray-100 rounded p-1 cursor-pointer"
-                                onClick={() => handleEmojiSelect(emoji)}
+                                className="text-2xl w-10 h-10 hover:bg-[#669FFF] rounded p-1 cursor-pointer"
+                                onClick={(e) =>
+                                  handleEmojiSelect(emoji, e, index)
+                                }
                               >
                                 {emoji}
                               </button>
@@ -160,39 +230,43 @@ export default function ChatContent() {
                           </div>
                         )}
                       </div>
-                      <div key={index}
-                        onClick={()=>toggleOptionModal(index)}
-                      >
-                      <OptionIcon />
 
-                      {isOpenOptionIndex === index && (
-                        <div className="absolute  top-0 left-[70px] rounded-xl  w-35 shadow-[0_0_10px_rgba(0,0,0,0.2)] ">
+                      <div
+                        onClick={() => toggleOptionModal(index)}
+                        className="option-icon"
+                      >
+                        <OptionIcon />
+                        {isOpenOptionIndex === index && (
+                          <div className="absolute top-0 left-[70px] rounded-xl bg-gray-100 w-35 shadow-[0_0_10px_rgba(0,0,0,0.2)] z-10">
                             <div className="flex items-center gap-2 px-2 py-1 hover:bg-gray-200">
-                              <BackIcon/>
+                              <BackIcon />
                               Trả lời
-                            </div> 
+                            </div>
                             <div className="flex items-center gap-2 px-2 py-1 hover:bg-gray-200">
-                              <EditIcon/>
+                              <EditIcon />
                               Chỉnh sửa
-                              </div> 
+                            </div>
                             <div className="flex items-center gap-2 px-2 py-1 hover:bg-gray-200">
-                              <PinIcon/>
+                              <PinIcon />
                               Ghim
-                            </div> 
+                            </div>
                             <div className="flex items-center gap-2 px-2 py-1 hover:bg-gray-200 text-red-500">
-                              <TrashIcon/>
-                              Xóa tin nhắn</div>   
-                        </div>
-                      )}
+                              <TrashIcon />
+                              Xóa tin nhắn
+                            </div>
+                          </div>
+                        )}
                       </div>
+                    </div>
+                  )}
                 </div>
-          
-                </div>
+
                 <p
-                  className={`text-xs mt-1 ${
-                    msg.isSent ? "text-gray-500" : "text-gray-500"
-                  } ${msg.isSent ? "self-end" : "ml-10"}`}
+                  className={`text-xs flex items-center mt-1 text-gray-500 ${
+                    msg.isSent ? "self-end" : "ml-10"
+                  }`}
                 >
+                  <DoubleDoneIcon/>
                   {msg.time}
                 </p>
               </div>
@@ -201,7 +275,7 @@ export default function ChatContent() {
         ) : (
           <div className="w-full h-full flex flex-col justify-center items-center">
             <ChatIcon />
-            <p className="text-gray-500 text-center mb-65">
+            <p className="text-gray-500 text-center mb-40">
               Chưa có tin nhắn ...
             </p>
           </div>

@@ -4,6 +4,23 @@ import AddIcon from "../../Components/icons/AddIcon";
 import DownIcon from "../../Components/icons/DownIcon";
 import EmojiIcon from "../../Components/icons/EmojiIcon";
 import SendIcon from "../../Components/icons/SendIcon";
+import { Button, Upload } from "antd";
+
+
+const props = {
+  action: 'https://www.mocky.io/v2/5cc8019d300000980a055e76',
+  onChange(info) {
+    if (info.file.status !== 'uploading') {
+      console.log(info.file, info.fileList);
+    }
+    if (info.file.status === 'done') {
+      message.success(`${info.file.name} uploaded successfully`);
+    } else if (info.file.status === 'error') {
+      message.error(`${info.file.name} upload failed.`);
+    }
+  },
+};
+
 
 export default function Chat() {
   const [isEmojiModalOpen, setIsEmojiModalOpen] = useState(false);
@@ -51,13 +68,17 @@ export default function Chat() {
 
   return (
     <div
-      className="fixed bottom-0 left-[350px] max-md:left-[90px] right-0 bg-white"
+      className="fixed bottom-0 left-[350px] max-md:left-[72px] right-0 bg-white"
       onClick={handleClickOutside}
     >
       <ChatContent />
 
       <div className="max-w-[1560px] mx-auto flex items-center justify-between gap-2 px-4 py-2">
-        <AddIcon />
+        
+
+        <Upload {...props}>
+          {<AddIcon />}
+        </Upload>
 
         <div className="relative flex flex-1 items-center gap-2 mx-4">
           <input
@@ -66,7 +87,7 @@ export default function Chat() {
             value={message}
             onChange={(e) => setMessage(e.target.value)}
             ref={inputRef}
-            className="w-full overflow-hidden p-2 border rounded-full bg-[#DBDDE1] focus:outline-none focus:ring-1 focus:ring-blue-500"
+            className="w-full overflow-hidden p-2 px-4 border rounded-full bg-[#DBDDE1] focus:outline-none focus:ring-1 focus:ring-blue-500"
           />
           <button
             className="absolute right-3 top-1/2 transform -translate-y-1/2 emoji-icon"
