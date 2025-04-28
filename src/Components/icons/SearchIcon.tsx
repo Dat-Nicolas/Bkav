@@ -1,6 +1,6 @@
-export default function SearchIcon() {
+export default function SearchIcon({ isActive }) {
   return (
-    <div>
+    <div className={`focus:text-blue-500 ${isActive ? 'text-blue-500' : 'text-gray-500'}`}>
       <svg
         width="24"
         height="24"
@@ -8,8 +8,8 @@ export default function SearchIcon() {
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
       >
-        <circle cx="11" cy="11" r="6" stroke="#222222" />
-        <path d="M20 20L17 17" stroke="#222222" stroke-linecap="round" />
+        <circle cx="11" cy="11" r="6" stroke="CurrentColor" />
+        <path d="M20 20L17 17" stroke="CurrentColor" strokeLinecap="round" />
       </svg>
     </div>
   );

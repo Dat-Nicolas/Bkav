@@ -15,7 +15,11 @@ export default function ChatContent() {
   const { id } = useParams();
   const [isOpenEmojiIndex, setOpenEmojiIndex] = useState(null);
   const [isOpenOptionIndex, setOpenOptionIndex] = useState(null);
+  const [isModalDeleteContent, setModalDeleteContent] = useState(false);
+  const [messageToDelete, setMessageToDelete] = useState(null);
+  const [deletedSuccess, setDeletedSuccess] = useState(false);
   const inputRef = useRef(null);
+
   const selectedUser = chatList.find((chat) => chat.id === parseInt(id));
   const userMessages = messages.filter((msg) => msg.id === parseInt(id));
   const [selectedEmojis, setSelectedEmojis] = useState({});
@@ -56,20 +60,33 @@ export default function ChatContent() {
     }
   };
 
+  const confirmDeleteMessage = () => {
+    if (messageToDelete !== null) {
+      setUserMessages((prevMessages) =>
+        prevMessages.filter((_, index) => index !== messageToDelete)
+      );
+      setMessageToDelete(null);
+      setModalDeleteContent(false);
+      setDeletedSuccess(true);
+
+      setTimeout(() => setDeletedSuccess(false), 2000);
+    }
+  };
+
   return (
     <div
-      className="flex-1 w-full h-[615px] flex flex-col bg-gray-100 overflow-y-auto"
+      className="flex-1 w-full h-screen pt-[115px]  flex flex-col  overflow-y-auto"
       onClick={handleClickOutside}
     >
       {/* Chat Header */}
-      <div className="fixed top-0 w-full p-2 bg-white border-b border-gray-200 flex items-center z-10">
+      <div className="fixed top-0 h-[60px] w-full p-2 bg-white border-b border-gray-200 flex items-center z-10">
         <div className="flex items-center gap-3">
           <div className="flex items-center">
             <div className="relative">
               <img
                 src={selectedUser?.avata}
                 alt={selectedUser?.name || "User"}
-                className="relative w-10 h-10 rounded-full mr-3"
+                className="relative w-[40px] h-[40px] rounded-full mr-3"
               />
               <div className="absolute top-[-5px] right-[10px]">
                 <OnlineBtn />
@@ -86,22 +103,22 @@ export default function ChatContent() {
       </div>
 
       {/* Chat Messages */}
-      <div className="flex-1 p-4 pt-16 overflow-y-auto">
+      <div className="flex-1   px-[8px] py-[4px]  overflow-y-auto">
         {userMessages.length > 0 ? (
           userMessages.map((msg, index) => (
             <div
               key={index}
-              className={`flex mb-4 ${
+              className={`flex  mb-4 ${
                 msg.isSent ? "justify-end" : "justify-start"
               }`}
             >
               <div
-                className={`flex flex-col ${
+                className={`flex  flex-col ${
                   msg.isSent ? "items-end" : "items-start"
                 } w-full`}
               >
                 <div
-                  className={`flex items-center gap-1 w-full ${
+                  className={`flex text-left items-center gap-1 w-full ${
                     msg.isSent ? "justify-end" : "justify-start"
                   }`}
                 >
@@ -109,12 +126,11 @@ export default function ChatContent() {
                     <img
                       src={selectedUser?.avata}
                       alt={msg.user}
-                      className="w-8 h-8 rounded-full mr-2 mb-2 self-end"
+                      className="w-8 h-8  rounded-full mr-2 mb-2 self-end"
                     />
                   )}
-
                   {msg.isSent && (
-                    <div className="relative w-[50px] mr-3 flex gap-2 items-center">
+                    <div className="relative  w-[68px] h-[34px] mr-3 flex gap-2 items-center">
                       <div
                         onClick={() => toggleEmojiModal(index)}
                         className="emoji-icon relative"
@@ -143,7 +159,7 @@ export default function ChatContent() {
                       >
                         <OptionIcon />
                         {isOpenOptionIndex === index && (
-                          <div className="absolute top-0 md:left-[-150px]  left-[-135px] rounded-xl bg-gray-100 w-35 shadow-[0_0_10px_rgba(0,0,0,0.2)] z-10">
+                          <div className="absolute top-0 md:left-[-150px]  left-[-135px] rounded-xl bg-gray-100 w-35 shadow-[0_0_10px_rgba(0,0,0,0.2)] z-10 cursor-pointer">
                             <div className="flex items-center gap-2 px-2 py-1 hover:bg-gray-200">
                               <BackIcon />
                               Trả lời
@@ -156,7 +172,13 @@ export default function ChatContent() {
                               <PinIcon />
                               Ghim
                             </div>
-                            <div className="flex items-center gap-2 px-2 py-1 hover:bg-gray-200 text-red-500">
+                            <div
+                              className="flex items-center gap-2 px-2 py-1 hover:bg-gray-200 text-red-500 cursor-pointer"
+                              onClick={() => (
+                                setMessageToDelete(index),
+                                setModalDeleteContent(true)
+                              )}
+                            >
                               <TrashIcon />
                               Xóa tin nhắn
                             </div>
@@ -167,10 +189,10 @@ export default function ChatContent() {
                   )}
 
                   <div
-                    className={`max-w-[50%] relative p-3 rounded-2xl ${
+                    className={`max-w-[50%]  relative  rounded-tl-[16px] rounded-tr-[16px] rounded-bl-[16px] rounded-br-[2px] ${
                       msg.isSent
-                        ? "bg-blue-500 text-white"
-                        : "bg-white text-gray-800"
+                        ? "bg-[#E0F0FF] text-[#080707]"
+                        : "bg-[#E9EAED] text-[#080707]"
                     } ${msg.isSent ? "text-right" : "text-left"}`}
                   >
                     {selectedEmojis[index] && (
@@ -178,27 +200,32 @@ export default function ChatContent() {
                         {selectedEmojis[index]}
                       </div>
                     )}
-                    {msg.content && <p className="truncate">{msg.content}</p>}
                     {msg.image && (
                       <img
                         src={msg.image}
                         alt="Attachment"
-                        className="mt-2 rounded w-full max-w-[200px] h-auto"
+                        className=" rounded-[14px] w-full  object-cover max-w-[252px] h-auto"
                       />
                     )}
                     {msg.video && (
                       <video
                         src={msg.video}
                         controls
-                        className="mt-2 rounded w-full max-w-[200px] h-auto"
+                        className=" rounded-[14px] w-full object-cover max-w-[252px] h-auto"
                       />
                     )}
+                    {msg.content && (
+                      <p className="w-[250px] text-left p-2 break-words">
+                        {msg.content}
+                      </p>
+                    )}
+
                     {msg.link && (
                       <a
                         href={msg.link}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className={`mt-2 truncate max-w-[200px] block w-[150px] ${
+                        className={` truncate p-2 max-w-[200px] block w-[150px] ${
                           msg.isSent ? "text-blue-200" : "text-blue-500"
                         } underline`}
                       >
@@ -208,7 +235,7 @@ export default function ChatContent() {
                   </div>
 
                   {!msg.isSent && (
-                    <div className="relative w-[50px] ml-3 flex gap-2 items-center">
+                    <div className="relative w-[68px] h-[34px] ml-3 flex gap-2 items-center">
                       <div
                         onClick={() => toggleEmojiModal(index)}
                         className="emoji-icon relative"
@@ -237,7 +264,7 @@ export default function ChatContent() {
                       >
                         <OptionIcon />
                         {isOpenOptionIndex === index && (
-                          <div className="absolute top-0 left-[70px] rounded-xl bg-gray-100 w-35 shadow-[0_0_10px_rgba(0,0,0,0.2)] z-10">
+                          <div className="absolute top-0 left-[80px] rounded-xl bg-gray-100 w-35 shadow-[0_0_10px_rgba(0,0,0,0.2)] z-10">
                             <div className="flex items-center gap-2 px-2 py-1 hover:bg-gray-200">
                               <BackIcon />
                               Trả lời
@@ -250,10 +277,49 @@ export default function ChatContent() {
                               <PinIcon />
                               Ghim
                             </div>
-                            <div className="flex items-center gap-2 px-2 py-1 hover:bg-gray-200 text-red-500">
+                            <div className="flex items-center gap-2 px-2 py-1 hover:bg-gray-200 text-red-500 cursor-pointer">
                               <TrashIcon />
                               Xóa tin nhắn
                             </div>
+                            {isModalDeleteContent && (
+                              <>
+                                <div
+                                  className="fixed inset-0 bg-black opacity-50 z-40"
+                                  onClick={() => setModalDeleteContent(false)}
+                                />
+                                <div className="fixed z-50 top-1/2 left-1/2 w-[300px] p-6 bg-white rounded-xl shadow-xl transform -translate-x-1/2 -translate-y-1/2 text-black">
+                                  <h2 className="text-lg font-semibold mb-4">
+                                    Xóa tin nhắn
+                                  </h2>
+                                  <p className="text-sm text-gray-600 mb-6">
+                                    Bạn có chắc chắn muốn xóa tin nhắn này ?
+                                  </p>
+                                  <div className="flex justify-end gap-3">
+                                    <button
+                                      className="px-2 py-1 rounded bg-gray-200 text-gray-700 hover:bg-gray-300 cursor-pointer"
+                                      onClick={() =>
+                                        setModalDeleteContent(false)
+                                      }
+                                    >
+                                      Hủy bỏ
+                                    </button>
+                                    <div
+                                      className="px-2 py-1 rounded bg-red-500 text-white hover:bg-red-600"
+                                      onClick={() =>
+                                        setModalDeleteContent(false)
+                                      }
+                                    >
+                                      Xóa
+                                      {deletedSuccess && (
+                                        <div className="fixed top-20 left-1/2 transform -translate-x-1/2 bg-green-500 text-white px-4 py-2 rounded-lg shadow-lg z-50">
+                                          Đã xóa tin nhắn thành công!
+                                        </div>
+                                      )}
+                                    </div>
+                                  </div>
+                                </div>
+                              </>
+                            )}
                           </div>
                         )}
                       </div>
@@ -266,7 +332,7 @@ export default function ChatContent() {
                     msg.isSent ? "self-end" : "ml-10"
                   }`}
                 >
-                  <DoubleDoneIcon/>
+                  <DoubleDoneIcon />
                   {msg.time}
                 </p>
               </div>

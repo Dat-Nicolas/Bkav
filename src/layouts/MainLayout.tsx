@@ -8,7 +8,7 @@ export default function MainLayout() {
   return (
     <div
       className={`flex h-screen ${
-        theme === "dark" ? "bg-gray-900" : "bg-gray-100"
+        theme === "dark" ? "bg-gray-900 text-gray" : " text-gray-600"
       }`}
     >
       <Sidebar />

@@ -1,9 +1,9 @@
 export default function Logo() {
   return (
-    <div className="flex items-center justify-center gap-4">
+    <div className="flex gap-[46px]  w-[489px] h-[135px]">
       <svg
-        width="80"
-        height="98"
+        width="106"
+        height="130"
         viewBox="0 0 106 130"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
@@ -31,12 +31,12 @@ export default function Logo() {
             gradientUnits="userSpaceOnUse"
             gradientTransform="translate(43.2429 24.7884) scale(81.2992 81.2088)"
           >
-            <stop offset="0.11" stop-color="#F49424" />
-            <stop offset="1" stop-color="#ED351C" />
+            <stop offset="0.11" stopColor="#F49424" />
+            <stop offset="1" stopColor="#ED351C" />
           </radialGradient>
         </defs>
       </svg>
-      <h1 className="text-[20px] xl:text-[56px] font-bold text-orange-500">
+      <h1 className="w-[337px] h-[121px] text-[64px] font-bold text-[#F85C22]">
         Bkav Chat
       </h1>
     </div>

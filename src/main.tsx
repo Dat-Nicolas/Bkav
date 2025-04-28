@@ -6,6 +6,9 @@ import { RouterProvider } from "react-router";
 import router from "./router";
 import { MESSAGES, LOCALES } from "../src/libs/src/message";
 import { IntlProvider } from "react-intl";
+import { GoogleOAuthProvider } from "@react-oauth/google";
+// import FacebookLogin from 'react-facebook-login';
+// import { FacebookProvider } from 'react-facebook-login';
 
 // Language Context
 const LanguageContext = createContext<{
@@ -30,6 +33,7 @@ const ThemeContext = createContext<{
 export const useTheme = () => useContext(ThemeContext);
 
 const App = () => {
+  const [fbUser, setFbUser] = useState(null);
   const [language, setLanguage] = useState(LOCALES.VIETNAM);
   const [theme, setTheme] = useState("light");
 
@@ -42,7 +46,23 @@ const App = () => {
     [LOCALES.VIETNAM]: MESSAGES[LOCALES.VIETNAM],
   };
 
+  const responseFacebook = (response) => {
+    if (response.accessToken) {
+      setFbUser(response);
+      console.log('Facebook login success:', response);
+    } else {
+      console.log('Facebook login failed:', response);
+    }
+  };
+
+  const login = () => {
+  };
+
+
   return (
+    // <FacebookProvider clientId="9413488392083048">
+
+    <GoogleOAuthProvider clientId="481653149870-6pt1h942udqrn5esa21rhupusfgqnba2.apps.googleusercontent.com">
     <ThemeProvider>
     <ThemeContext.Provider value={{ theme, toggleTheme }}>
       <LanguageContext.Provider value={{ language, setLanguage }}>
@@ -52,6 +72,9 @@ const App = () => {
       </LanguageContext.Provider>
     </ThemeContext.Provider>
     </ThemeProvider>
+    </GoogleOAuthProvider>
+    // </FacebookProvider>
+
   );
 };
 

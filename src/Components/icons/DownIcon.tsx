@@ -8,7 +8,7 @@ export default function DownIcon() {
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
       >
-        <path d="M18 9L12 15L6 9" stroke="#005FFF" stroke-width="2" />
+        <path d="M18 9L12 15L6 9" stroke="#005FFF" strokeWidth="2" />
       </svg>
     </div>
   );

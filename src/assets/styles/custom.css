@@ -1,19 +1,31 @@
 @media (max-width: 768px) {
-    .sidebar {
-      display: none;
-    }
-  
-    .sidebar-open {
-      display: block;
-    }
-  
-    .sidebar:hover {
-      display: none;
-    }
+  .sidebar {
+    display: none;
   }
-  
+
+  .sidebar-open {
+    display: block;
+  }
+
+  .sidebar:hover {
+    display: none;
+  }
+}
 
 
-  .custom-caret {
-    caret-color: #3b82f6; 
-  }
+
+.custom-caret {
+  caret-color: #3b82f6;
+}
+
+.btn {
+  height: 60px;
+}
+
+
+
+
+.ant-form-item-label {
+  display: flex;
+  align-items: center;
+}

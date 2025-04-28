@@ -4,37 +4,36 @@ import AddIcon from "../../Components/icons/AddIcon";
 import DownIcon from "../../Components/icons/DownIcon";
 import EmojiIcon from "../../Components/icons/EmojiIcon";
 import SendIcon from "../../Components/icons/SendIcon";
-import { Button, Upload } from "antd";
-
+import { Upload, message } from "antd";
 
 const props = {
-  action: 'https://www.mocky.io/v2/5cc8019d300000980a055e76',
+  action: "https://www.mocky.io/v2/5cc8019d300000980a055e76",
   onChange(info) {
-    if (info.file.status !== 'uploading') {
+    if (info.file.status !== "uploading") {
       console.log(info.file, info.fileList);
     }
-    if (info.file.status === 'done') {
+    if (info.file.status === "done") {
       message.success(`${info.file.name} uploaded successfully`);
-    } else if (info.file.status === 'error') {
+    } else if (info.file.status === "error") {
       message.error(`${info.file.name} upload failed.`);
     }
   },
 };
 
-
 export default function Chat() {
+  const chatRef = useRef();
   const [isEmojiModalOpen, setIsEmojiModalOpen] = useState(false);
-  const [message, setMessage] = useState("");
+  const [messageText, setMessageText] = useState("");
   const inputRef = useRef(null);
 
   const emojis = [
     "😊", "😂", "👍", "❤️", "😍", "😢", "😎", "😡", "🙌", "🔥",
-    "🎉", "🥳", "😴", "🤓", "😜", "😇", "😈", "🙏", "💪", "✨",
-    "😋", "🤗", "🥰", "😣", "😬", "🤩", "😷", "🥶", "😳", "🤔",
-    "🐶", "🐱", "🐻", "🦁", "🐷", "🐸", "🐵", "🦄", "🐝", "🦋",
-    "🍎", "🍕", "🍔", "🍦", "🍫", "🍉", "🍓", "🍒", "☕", "🍷",
-    "⚽", "🏀", "🎸", "🎤", "🎮", "🚗", "✈️", "🚀", "🏖️", "🏔️",
+    "😜", "🤔", "🥰", "😱", "😭", "😇", "😴", "😅", "😁", "🤗",
+    "🎉", "🙈", "🤩", "🤪", "😤", "😋", "🤤", "😶", "😬", "😷",
+    "🤒", "🤕", "🤑", "😈", "👻", "💀", "👽", "🤖", "🎃", "😺",
+    "😸", "😹", "😻", "😼", "😽", "🙀", "😿", "😾", "🫶", "🫡"
   ];
+  
 
   const toggleEmojiModal = () => {
     setIsEmojiModalOpen(!isEmojiModalOpen);
@@ -45,10 +44,9 @@ export default function Chat() {
     const startPos = input.selectionStart || 0;
     const endPos = input.selectionEnd || 0;
     const newValue =
-      message.substring(0, startPos) + emoji + message.substring(endPos);
-    setMessage(newValue);
+      messageText.substring(0, startPos) + emoji + messageText.substring(endPos);
+    setMessageText(newValue);
     setIsEmojiModalOpen(false);
-
     setTimeout(() => {
       input.focus();
       input.selectionStart = startPos + emoji.length;
@@ -66,28 +64,33 @@ export default function Chat() {
     }
   };
 
+  const scrollToBottom = () => {
+    console.log("scroll");
+    if (chatRef.current) {
+      chatRef.current.scrollTop = chatRef.current.scrollHeight;
+    }
+  };
+
   return (
     <div
-      className="fixed bottom-0 left-[350px] max-md:left-[72px] right-0 bg-white"
+      className="fixed bottom-0 left-[360px] max-md:left-[80px] right-0 "
       onClick={handleClickOutside}
     >
-      <ChatContent />
+      <ChatContent ref={chatRef} />
 
-      <div className="max-w-[1560px] mx-auto flex items-center justify-between gap-2 px-4 py-2">
-        
-
+      <div className="max-w-[1560px] h-[56px] mx-auto flex items-center justify-between gap-2 px-4 py-2">
         <Upload {...props}>
-          {<AddIcon />}
+          <AddIcon />
         </Upload>
 
         <div className="relative flex flex-1 items-center gap-2 mx-4">
           <input
             type="text"
             placeholder="Nhập tin nhắn..."
-            value={message}
-            onChange={(e) => setMessage(e.target.value)}
+            value={messageText}
+            onChange={(e) => setMessageText(e.target.value)}
             ref={inputRef}
-            className="w-full overflow-hidden p-2 px-4 border rounded-full bg-[#DBDDE1] focus:outline-none focus:ring-1 focus:ring-blue-500"
+            className="w-full h-[40px] overflow-hidden p-2 px-4 border rounded-full bg-[#DBDDE1] focus:outline-none focus:ring-1 focus:ring-blue-500"
           />
           <button
             className="absolute right-3 top-1/2 transform -translate-y-1/2 emoji-icon"
@@ -95,7 +98,6 @@ export default function Chat() {
           >
             <EmojiIcon />
           </button>
-         
           {isEmojiModalOpen && (
             <div className="absolute bottom-12 right-0 bg-white border border-gray-200 rounded-lg shadow-lg p-3 grid grid-cols-5 gap-2 max-h-[200px] overflow-y-auto emoji-modal z-10">
               {emojis.map((emoji, index) => (
@@ -109,10 +111,12 @@ export default function Chat() {
               ))}
             </div>
           )}
-              
         </div>
 
-        <div className="absolute bg-white right-4 bottom-16 rounded-2xl p-1">
+        <div
+          className="absolute h-[40px] w-[40px]  shadow-[0_0_10px_rgba(0,0,0,0.2)] flex justify-center items-center bg-white right-4 bottom-16 rounded-full p-1 cursor-pointer"
+          onClick={scrollToBottom}
+        >
           <DownIcon />
         </div>
         <SendIcon />
@@ -120,6 +124,3 @@ export default function Chat() {
     </div>
   );
 }
-
-
-

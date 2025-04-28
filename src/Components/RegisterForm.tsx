@@ -19,109 +19,112 @@ const RegisterForm = () => {
   };
 
   return (
-    <div className="sm:w-150 sm:h-175 h-full w-full max-sm:px-3 flex flex-col gap-[30px]">
-      <p className="text-[48px] font-normal leading text-center text-12">
+    <div className="w-[617px] h-[668px]  flex flex-col gap-[30px]">
+      <p className="text-[48px] ml-[15px] w-full h-[86px] font-normal leading text-center">
         <FormattedMessage id={LOCALE_MESSAGE_IDS.register} />
       </p>
+     
       <Form
+      className="gap-[30px] [&_.ant-form-item-label"
         name="register"
-        className="flex flex-col gap-5"
+        layout="horizontal"
+        labelAlign="left"
+        requiredMark={false}
+        labelCol={{ span: 8 }}
+        wrapperCol={{ span: 16 }}
+        style={{ maxWidth: 600, width: "100%" , gap : "30px" }}
         initialValues={{ remember: true }}
         onFinish={onFinish}
       >
-        <div className="w-full h-20">
+      <div className="flex flex-col gap-[30px]">
           <Form.Item
+            label= {intl.formatMessage({
+              id:LOCALE_MESSAGE_IDS.user_name
+            })}
             name="username"
-            
+            labelCol={{ span: 8 }}
+            wrapperCol={{ span: 16 }}
             rules={[
               {
                 required: true,
                 message: intl.formatMessage({
-                  id: "username_required",
-                  defaultMessage: "Please enter your username!",
+                  id: LOCALE_MESSAGE_IDS.username_required,
                 }),
               },
             ]}
           >
             <Input
-            style={{backgroundColor:"#e8f0fe"}}
-
-              className="w-full h-15"
+              allowClear
+              style={{ backgroundColor: "#e8f0fe", height: 60 }}
               placeholder={intl.formatMessage({
-                id: LOCALE_MESSAGE_IDS.input_placeholder_username,
-                defaultMessage: "Enter your username",
+                id:LOCALE_MESSAGE_IDS.input_placeholder_username
               })}
             />
           </Form.Item>
-        </div>
-
-        <div className="w-full h-20">
+  
           <Form.Item
+            label= {intl.formatMessage({
+              id:LOCALE_MESSAGE_IDS.email
+            })}
             name="email"
+            labelCol={{ span: 8 }}
+            wrapperCol={{ span: 16 }}
             rules={[
               {
                 required: true,
                 message: intl.formatMessage({
-                  id: "email_required",
-                  defaultMessage: "Please enter your email address!",
-                }),
-              },
-              {
-                type: "email",
-                message: intl.formatMessage({
-                  id: "email_invalid",
-                  defaultMessage: "Invalid email address!",
+                  id: LOCALE_MESSAGE_IDS.email_required,
                 }),
               },
             ]}
           >
             <Input
-              className="w-full h-15"
-            style={{backgroundColor:"#e8f0fe"}}
-
+              allowClear
+              type="email"
+              style={{ backgroundColor: "#e8f0fe", height: 60 }}
               placeholder={intl.formatMessage({
-                id: LOCALE_MESSAGE_IDS.input_placeholder_email,
-                defaultMessage: "Enter your email",
+                id:LOCALE_MESSAGE_IDS.input_placeholder_email
               })}
             />
           </Form.Item>
-        </div>
-
-        <div className="w-full h-20">
+  
           <Form.Item
+           label= {intl.formatMessage({
+            id:LOCALE_MESSAGE_IDS.password
+          })}
             name="password"
+            labelCol={{ span: 8 }}
+            wrapperCol={{ span: 16 }}
             rules={[
               {
                 required: true,
                 message: intl.formatMessage({
-                  id: "password_required",
-                  defaultMessage: "Please enter your password!",
+                  id: LOCALE_MESSAGE_IDS.password_required,
                 }),
               },
             ]}
           >
             <Input.Password
-              className="w-full h-15 "
-            style={{backgroundColor:"#e8f0fe"}}
-
+              style={{ backgroundColor: "#e8f0fe", height: 60 }}
               placeholder={intl.formatMessage({
-                id: LOCALE_MESSAGE_IDS.input_placeholder_password,
-                defaultMessage: "Enter your password",
+                id:LOCALE_MESSAGE_IDS.input_placeholder_password
               })}
             />
           </Form.Item>
-        </div>
-
-        <div className="w-full h-20">
+  
           <Form.Item
+            label= {intl.formatMessage({
+              id:LOCALE_MESSAGE_IDS.reenter_password
+            })}
             name="confirmPassword"
+            labelCol={{ span: 8 }}
+            wrapperCol={{ span: 16 }}
             dependencies={["password"]}
             rules={[
               {
                 required: true,
                 message: intl.formatMessage({
-                  id: "confirm_password_required",
-                  defaultMessage: "Please confirm your password!",
+                  id: LOCALE_MESSAGE_IDS.confirm_password_required,
                 }),
               },
               ({ getFieldValue }) => ({
@@ -129,42 +132,36 @@ const RegisterForm = () => {
                   if (!value || getFieldValue("password") === value) {
                     return Promise.resolve();
                   }
-                  return Promise.reject(
-                    new Error(
-                      intl.formatMessage({
-                        id: "passwords_not_match",
-                        defaultMessage: "Passwords do not match!",
-                      })
-                    )
-                  );
+                  return Promise.reject(new Error("Mật khẩu không khớp!"));
                 },
               }),
             ]}
           >
             <Input.Password
-              className="w-full h-15"
-            style={{backgroundColor:"#e8f0fe"}}
-
+              style={{ backgroundColor: "#e8f0fe", height: 60 }}
               placeholder={intl.formatMessage({
-                id: LOCALE_MESSAGE_IDS.input_placeholder_confirm_password,
-                defaultMessage: "Confirm your password",
+                id:LOCALE_MESSAGE_IDS.input_placeholder_confirm_password
               })}
             />
           </Form.Item>
-        </div>
-
-        <Form.Item>
+          <Form.Item
+      labelCol={{ span: 8 }}
+      wrapperCol={{ span: 16 }}
+      >
           <Button
             type="primary"
             htmlType="submit"
-            className="w-full"
+            className="w-[400px] ml-[200px] btn "
           >
             <FormattedMessage id={LOCALE_MESSAGE_IDS.register} />
           </Button>
         </Form.Item>
+
+      </div>
       </Form>
 
-      <div className="text-right w-full italic font-normal size-[23px] mb-4 h-[30px] leading-[100%] tracking-0%">
+   
+      <div className="text-left ml-[200px] w-[400px] italic font-normal size-[23px] mb-4 h-[30px] leading-[100%] tracking-0%">
         <Text>
           <FormattedMessage id={LOCALE_MESSAGE_IDS.already_have_account} />{" "}
           <Link to="/login">
@@ -174,6 +171,7 @@ const RegisterForm = () => {
       </div>
 
       <Modal
+      className=""
         title={<FormattedMessage id={LOCALE_MESSAGE_IDS.verify_email_title} />}
         open={isModalVisible}
         onCancel={handleModalOk}
@@ -193,8 +191,6 @@ const RegisterForm = () => {
           <FormattedMessage id={LOCALE_MESSAGE_IDS.verify_email_message} />
         </p>
       </Modal>
-      <div className="w-full text-right italic font-normal text-[23px]"></div>
-
     </div>
   );
 };

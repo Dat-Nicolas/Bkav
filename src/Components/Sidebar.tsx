@@ -288,9 +288,9 @@
 //                 >
 //                   {chat.lastMessage}
 //                 </p>
-                  
+
 //                 </div>
-                
+
 //               </div>
 //               <div className={`flex-1 flex-col text-right hidden md:block group-hover:block`}>
 //                 <p>abc</p>
@@ -312,8 +312,6 @@
 //   );
 // }
 
-
-
 import { NavLink } from "react-router";
 import MenuIcon from "./icons/MenuIcon";
 import SearchIcon from "./icons/SearchIcon";
@@ -322,10 +320,16 @@ import LeftIcon from "./icons/LeftIcon";
 import { chatList } from "../pages/data/ChatData";
 import { useState, useEffect, useRef } from "react";
 import { Link } from "react-router";
+import NoSoundIcon from "./icons/NoSoundIcon";
+import UserIcon from "./icons/UserIcon";
+import SunIcon from "./icons/SunIcon";
+import MoonIcon from "./icons/MoonIcon";
+import GroupUserIcon from "./icons/GroupUserIcon";
 
 export default function Sidebar() {
   const [searchTerm, setSearchTerm] = useState("");
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isModalAvataOpen,setModalAvataOpen] = useState(false)
   const [isModalLogout, setIsModalLogout] = useState(false);
   const [isSearchModalOpen, setIsSearchModalOpen] = useState(false);
   const [viewedChats, setViewedChats] = useState(new Set());
@@ -350,7 +354,7 @@ export default function Sidebar() {
       if (
         sidebarRef.current &&
         !sidebarRef.current.contains(event.target) &&
-        window.innerWidth < 768 // Only on mobile
+        window.innerWidth < 768 
       ) {
         setIsModalOpen(false);
       }
@@ -372,6 +376,10 @@ export default function Sidebar() {
     setIsModalOpen(!isModalOpen);
   };
 
+  const toggleAvataModal = () => {
+    setModalAvataOpen(!isModalAvataOpen);
+  } 
+
   const openModalLogout = () => {
     setIsModalLogout(!isModalLogout);
   };
@@ -391,22 +399,19 @@ export default function Sidebar() {
   );
 
   return (
-//  <div className={`fixed top-0 left-0 bg-white h-full ${
-//     isModalOpen ? "overflow-y-auto" : "overflow-hidden"
-//   } border-r border-gray-300 text-black transition-all duration-300
-//     ${isModalOpen ? "w-[300px]" : "w-[70px]"}
-//     md:w-[350px]
-//     group z-50`}
-//     > 
-
-    < div className={`fixed top-0 left-0 bg-white h-full overflow-y-auto border-r border-gray-300 text-black transition-all duration-300
-     ${isModalOpen ? "w-[300px]" : "w-[70px]"}
-     md:w-[350px]
+    <div
+      className={`fixed  top-0 left-0 bg-white h-full md:overflow-y-auto
+        ${ isModalOpen ? "overflow-y-auto" : "max-md:overflow-hidden"}
+        border-r border-gray-300 text-black transition-all duration-300
+     ${isModalOpen ? "w-[300px]" : "w-[80px]"}
+     md:w-[360px]
      group z-50`}
-     >
+    >
 
       {/* Header */}
-      <div className={`flex justify-between items-center pl-2 w-full py-[10px]`}>
+      <div
+        className={`flex justify-between items-center pl-2 w-full h-[60px] py-[10px]`}
+      >
         <div className="ml-3 flex">
           {searchTerm ? (
             <button className="cursor-pointer" onClick={handleClear}>
@@ -424,10 +429,10 @@ export default function Sidebar() {
             placeholder="Tìm kiếm"
             value={searchTerm}
             onChange={handleSearchChange}
-            className="pl-10 pr-8 p-2 w-full overflow-hidden custom-caret  h-[40px] border rounded-full bg-gray-200 text-black focus:outline-none focus:ring-1 focus:ring-blue-500"
+            className="pl-10 pr-8 p-2 w-full overflow-hidden custom-caret  h-[40px] border rounded-full bg-gray-100 text-black focus:outline-none focus:ring-1  focus:ring-blue-500"
           />
-          <div className="absolute left-3 top-1/2 transform -translate-y-1/2 pointer-events-none">
-            <SearchIcon />
+          <div className="absolute left-3 top-1/2 transform -translate-y-1/2 pointer-events-none ">
+            <SearchIcon isActive={searchTerm.length > 0} />
           </div>
           {searchTerm && (
             <button
@@ -438,46 +443,49 @@ export default function Sidebar() {
             </button>
           )}
         </div>
-      </div>
-
-      {/* Modal Menu */}
-      {isModalOpen && (
-        <div className="bg-white border-t  fixed md:w-[340px] w-[290px]  shadow-[0_0_10px_rgba(0,0,0,0.2)] border-gray-300 ">
-
-        {/* <div className="bg-white border-t hidden  border-gray-300 w-full"> */}
-          <div className="p-2">
-            <div className="flex">
+        <div>
+          <div className="" onClick={toggleAvataModal}>
+            <img
+              className="w-10 h-10 rounded-full mr-10 md:hidden cursor-pointer"
+              src="https://images2.thanhnien.vn/528068263637045248/2024/1/25/e093e9cfc9027d6a142358d24d2ee350-65a11ac2af785880-17061562929701875684912.jpg"
+              alt=""
+            />
+          </div>
+          {isModalAvataOpen && (
+        <div className="bg-white border-t md:hidden fixed md:w-[340px] w-[290px] left-0 top-[60px] shadow-[0_0_10px_rgba(0,0,0,0.2)] border-gray-300 ">
+          <div className="p-2 h-[56px]">
+            <div className="flex items-center">
               <img
                 src="https://images2.thanhnien.vn/528068263637045248/2024/1/25/e093e9cfc9027d6a142358d24d2ee350-65a11ac2af785880-17061562929701875684912.jpg"
                 alt="Profile"
-                className="w-10 h-10 rounded-full mr-3"
+                className="w-[32px] h-[32px] object-cover rounded-full mr-3"
               />
               <div className="flex justify-between items-center w-full">
                 <h3 className="font-semibold">Cristal Parker</h3>
-                <button onClick={toggleModal} className="text-gray-500 hover:text-gray-700">
-                  <CloseIcon />
-                </button>
               </div>
             </div>
           </div>
 
           <div className="flex flex-col">
-            <div className="flex items-center p-4 hover:bg-gray-100">
+            <div className="flex h-[56px] items-center p-4 hover:bg-gray-100">
               <span className="mr-3 text-gray-500">🎵</span>
               <div className="flex justify-between w-full">
                 <span>Nhạc của bạn</span>
-                <span className="ml-auto bg-gray-200 text-gray-600 text-xs rounded-full px-2 py-1">1</span>
+                <span className="ml-auto bg-gray-200 text-gray-600 text-xs rounded-full px-2 py-1">
+                  1
+                </span>
               </div>
             </div>
-            <div className="flex items-center p-4 hover:bg-gray-100">
-              <span className="mr-3 text-gray-500">👥</span>
+            <div className="flex h-[56px] items-center p-4 hover:bg-gray-100">
+              <span className="mr-3 text-[#747881]"><GroupUserIcon/></span>
               <div className="flex justify-between w-full">
                 <span>Tạo nhóm</span>
-                <span className="ml-auto bg-red-500 text-white text-xs rounded-full px-2 py-1">80</span>
               </div>
             </div>
-            <div className="flex items-center p-4 hover:bg-gray-100">
-              <span className="mr-3 text-gray-500">{isDarkMode ? "☀️" : "🌙"}</span>
+            <div className="flex h-[56px] items-center p-4 hover:bg-gray-100">
+              <span className="mr-3 text-[#747881]">
+                {isDarkMode ? <SunIcon/> : <MoonIcon/>}
+              </span>
               <div className="flex justify-between w-full">
                 <span>{isDarkMode ? "Giao diện sáng" : "Giao diện tối"}</span>
                 <label className="ml-auto relative inline-flex items-center cursor-pointer">
@@ -491,8 +499,13 @@ export default function Sidebar() {
                 </label>
               </div>
             </div>
-            <div className="flex items-center p-4 hover:bg-gray-100 cursor-pointer" onClick={openModalLogout}>
-              <span className="mr-3 text-gray-500">🚪</span>
+            <div
+              className="flex h-[56px] items-center p-4 hover:bg-gray-100 cursor-pointer"
+              onClick={openModalLogout}
+            >
+              <span className="mr-3 ">
+                <UserIcon/>
+              </span>
               <div className="flex justify-between w-full">
                 <span>Đăng xuất</span>
               </div>
@@ -501,10 +514,116 @@ export default function Sidebar() {
 
           {isModalLogout && (
             <>
-              <div className="fixed inset-0 bg-black opacity-50 z-40" onClick={() => setIsModalLogout(false)} />
+              <div
+                className="fixed inset-0 bg-black opacity-50 z-40"
+                onClick={() => setIsModalLogout(false)}
+              />
               <div className="fixed z-50 top-1/2 left-1/2 w-[300px] p-6 bg-white rounded-xl shadow-xl transform -translate-x-1/2 -translate-y-1/2 text-black">
-                <h2 className="text-lg font-semibold mb-4">Xác nhận đăng xuất</h2>
-                <p className="text-sm text-gray-600 mb-6">Bạn có chắc chắn muốn đăng xuất?</p>
+                <h2 className="text-lg font-semibold mb-4">
+                  Xác nhận đăng xuất
+                </h2>
+                <p className="text-sm text-gray-600 mb-6">
+                  Bạn có chắc chắn muốn đăng xuất?
+                </p>
+                <div className="flex justify-end gap-3">
+                  <button
+                    className="px-2 py-1 rounded bg-gray-200 text-gray-700 hover:bg-gray-300 cursor-pointer"
+                    onClick={() => setIsModalLogout(false)}
+                  >
+                    Hủy
+                  </button>
+                  <Link
+                    to={"/login"}
+                    className="px-2 py-1 rounded bg-red-500 text-white hover:bg-red-600"
+                    onClick={() => setIsModalLogout(false)}
+                  >
+                    Đăng xuất
+                  </Link>
+                </div>
+              </div>
+            </>
+          )}
+        </div>
+      )}
+        </div>
+      </div>
+
+      {/* Modal Menu */}
+      {isModalOpen && (
+        <div className="bg-white border-t max-md:hidden fixed md:w-[295px] w-[290px] h-[280px] rounded-2xl  shadow-[0_0_10px_rgba(0,0,0,0.2)] border-gray-300 ml-[10px]">
+          {/* <div className="bg-white border-t hidden  border-gray-300 w-full"> */}
+          <div className="p-2 h-[56px]">
+            <div className="flex items-center">
+              <img
+                src="https://images2.thanhnien.vn/528068263637045248/2024/1/25/e093e9cfc9027d6a142358d24d2ee350-65a11ac2af785880-17061562929701875684912.jpg"
+                alt="Profile"
+                className="w-[32px] h-[32px] object-cover rounded-full mr-3"
+              />
+              <div className="flex justify-between items-center w-full">
+                <h3 className="font-semibold">Cristal Parker</h3>
+              </div>
+            </div>
+          </div>
+
+          <div className="flex flex-col">
+            <div className="flex h-[56px] items-center p-4 hover:bg-gray-100">
+              <span className="mr-3 text-gray-500">🎵</span>
+              <div className="flex justify-between w-full">
+                <span>Nhạc của bạn</span>
+                <span className="ml-auto bg-gray-200 text-gray-600 text-xs rounded-full px-2 py-1">
+                  1
+                </span>
+              </div>
+            </div>
+            <div className="flex h-[56px] items-center p-4 hover:bg-gray-100">
+              <span className="mr-3 text-[#747881]"><GroupUserIcon/></span>
+              <div className="flex justify-between w-full">
+                <span>Tạo nhóm</span>
+              </div>
+            </div>
+            <div className="flex h-[56px] items-center p-4 hover:bg-gray-100">
+              <span className="mr-3 text-[#747881]">
+                {isDarkMode ? <SunIcon/> : <MoonIcon/>}
+              </span>
+              <div className="flex justify-between w-full">
+                <span>{isDarkMode ? "Giao diện sáng" : "Giao diện tối"}</span>
+                <label className="ml-auto relative inline-flex items-center cursor-pointer">
+                  <input
+                    type="checkbox"
+                    className="sr-only peer"
+                    checked={isDarkMode}
+                    onChange={toggleDarkMode}
+                  />
+                  <div className="w-11 h-6 bg-gray-200 peer-checked:bg-blue-500 rounded-full after:content-[''] after:absolute after:top-0.5 after:left-[2px] after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:after:translate-x-full"></div>
+                </label>
+              </div>
+            </div>
+            <div
+              className="flex h-[56px] items-center p-4 hover:bg-gray-100 cursor-pointer"
+              onClick={openModalLogout}
+            >
+              <span className="mr-3 ">
+                <UserIcon/>
+              </span>
+              <div className="flex justify-between w-full">
+                <span>Đăng xuất</span>
+              </div>
+            </div>
+          </div>
+
+          {isModalLogout && (
+            <>
+              <div
+                className="fixed inset-0 bg-black opacity-50 z-40"
+                onClick={() => setIsModalLogout(false)}
+              />
+              <div className="fixed z-50 top-1/2 left-1/2 w-[300px] p-6 bg-white rounded-xl shadow-xl transform -translate-x-1/2 -translate-y-1/2 text-black">
+                <h2 className="text-lg font-semibold mb-4">
+                  Xác nhận đăng xuất
+                </h2>
+                <p className="text-sm text-gray-600 mb-6">
+                  Bạn có chắc chắn muốn đăng xuất?
+                </p>
                 <div className="flex justify-end gap-3">
                   <button
                     className="px-2 py-1 rounded bg-gray-200 text-gray-700 hover:bg-gray-300 cursor-pointer"
@@ -528,19 +647,26 @@ export default function Sidebar() {
 
       {/* Modal Search */}
       {isSearchModalOpen && (
-        <div className="fixed bg-opacity-50 flex items-start justify-center z-50">
-          <div className="bg-white md:w-[349px] w-[250px] mt-2 rounded-lg shadow-lg overflow-hidden text-black">
-            <div className="p-4">
-              <p className="text-sm text-gray-500 mb-2">{filteredChats.length} results</p>
+        <div className="fixed bg-opacity-50 flex  items-start justify-center z-50">
+          <div className="bg-white md:w-[349px] w-[290px] mt-2 overflow-hidden text-black">
+            <div className=" ">
+              <p className="text-sm text-gray-500 mb-2 pl-4 ">
+                {filteredChats.length} results
+              </p>
+              <div className="h-[1px]  w-full border-b border-[#DBDDE1]"></div>
               {filteredChats.length > 0 ? (
                 filteredChats.map((chat) => (
                   <NavLink
                     key={chat.id}
                     to={`/chat/${chat.id}`}
-                    className="flex items-center p-2 hover:bg-gray-100 rounded"
+                    className="flex gap-3 items-center p-2  hover:bg-gray-100 rounded"
                     onClick={handleClear}
                   >
-                    <img src={chat.avata} alt={chat.name} className="w-10 h-10 rounded-full mr-3" />
+                    <img
+                      src={chat.avata}
+                      alt={chat.name}
+                      className="w-10 h-10 rounded-full "
+                    />
                     <span className="font-medium">{chat.name}</span>
                   </NavLink>
                 ))
@@ -561,14 +687,18 @@ export default function Sidebar() {
               to={`/chat/${chat.id}`}
               onClick={() => handleChatClick(chat.id)}
               className={({ isActive }) =>
-                `flex md:items-center p-4 hover:bg-gray-100 ${
+                `flex md:items-center h-[72px] p-4 hover:bg-gray-100 ${
                   isActive ? "bg-gray-100" : ""
                 }`
               }
             >
-              <img src={chat.avata} alt={chat.name} className="w-10 h-10 rounded-full mr-5 md:mr-3" />
+              <img
+                src={chat.avata}
+                alt={chat.name}
+                className="w-[49px] h-[49px] object-cover rounded-full mr-5 md:mr-3"
+              />
               <div className={`flex-1 `}>
-                <div className="flex flex-col justify-between w-[220px] max-md:w-[120px]">
+                <div className="flex flex-col justify-between w-[200px] max-md:w-[120px]">
                   <span
                     className={`font-medium ${
                       viewedChats.has(chat.id) ? "text-gray-400" : "text-black"
@@ -578,17 +708,25 @@ export default function Sidebar() {
                   </span>
                   <p
                     className={`text-sm truncate ${
-                      viewedChats.has(chat.id) ? "text-gray-400" : "text-gray-600"
+                      viewedChats.has(chat.id)
+                        ? "text-gray-400"
+                        : "text-gray-600"
                     }`}
                   >
                     {chat.lastMessage}
                   </p>
                 </div>
               </div>
-              <div className={`flex-1 flex-col text-right `}>
-                <p>abc</p>
+              <div className={`flex-1 flex-col  text-right `}>
+                 <div className="flex justify-end gap-2">
+                   
+                   <span  className={` ${viewedChats.has(chat.id) ? "hidden" : "flex"} ml-auto w-[29px] h-[24px] bg-red-500 text-white text-xs rounded-full px-2 py-1`}>
+                    80
+                  </span>
+                   <NoSoundIcon/>
+                 </div>
                 <span
-                  className={`text-sm ${
+                  className={`text-sm  ${
                     viewedChats.has(chat.id) ? "text-gray-400" : "text-gray-500"
                   }`}
                 >

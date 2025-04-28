@@ -21,6 +21,18 @@ export const messages = [
   { id: 1, user: "You", content: "Rocket mới nhìn đỉnh quáaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaàefwefewfwefrewgrg4gh54h!", time: "10:50", isSent: true, image: "https://images.unsplash.com/photo-1446941611757-91d2c3bd3d45?q=80&w=1902&auto=format&fit=crop" },
   { id: 1, user: "You", content: "Clip này từ sao Hỏa hả?", time: "10:51", isSent: true, video: "https://videos.pexels.com/video-files/1721308/1721308-hd_1920_1080_30fps.mp4" },
   { id: 1, user: "You", time: "10:51", isSent: true, link: "https://www.facebook.com/" , content:"in4 fb đây nhé " } ,
+  { id: 1, user: "Elon Musk", content: "Nhắn tin hơi lâu nhaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa...", time: "10:45", isSent: false },
+  { id: 1, user: "Elon Musk", content: "Nhắn tin hơi lâu nhaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa...", time: "10:45", isSent: false },
+  { id: 1, user: "Elon Musk", content: "Nhắn tin hơi lâu nhaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa...", time: "10:45", isSent: false },
+  { id: 1, user: "Elon Musk", content: "Nhắn tin hơi lâu nhaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa...", time: "10:45", isSent: false },
+  { id: 1, user: "Elon Musk", content: "Nhắn tin hơi lâu nhaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa...", time: "10:45", isSent: false },
+  { id: 1, user: "Elon Musk", content: "Nhắn tin hơi lâu nhaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa...", time: "10:45", isSent: false },
+  { id: 1, user: "You", content: "Rocket mới nhìn đỉnh quáaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaàefwefewfwefrewgrg4gh54h!", time: "10:50", isSent: true, image: "https://images.unsplash.com/photo-1446941611757-91d2c3bd3d45?q=80&w=1902&auto=format&fit=crop" },
+  { id: 1, user: "You", content: "Rocket mới nhìn đỉnh quáaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaàefwefewfwefrewgrg4gh54h!", time: "10:50", isSent: true, image: "https://images.unsplash.com/photo-1446941611757-91d2c3bd3d45?q=80&w=1902&auto=format&fit=crop" },
+  { id: 1, user: "You", content: "Rocket mới nhìn đỉnh quáaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaàefwefewfwefrewgrg4gh54h!", time: "10:50", isSent: true, image: "https://images.unsplash.com/photo-1446941611757-91d2c3bd3d45?q=80&w=1902&auto=format&fit=crop" },
+  { id: 1, user: "You", content: "Rocket mới nhìn đỉnh quáaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaàefwefewfwefrewgrg4gh54h!", time: "10:50", isSent: true, image: "https://images.unsplash.com/photo-1446941611757-91d2c3bd3d45?q=80&w=1902&auto=format&fit=crop" },
+  { id: 1, user: "You", content: "Rocket mới nhìn đỉnh quáaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaàefwefewfwefrewgrg4gh54h!", time: "10:50", isSent: true, image: "https://images.unsplash.com/photo-1446941611757-91d2c3bd3d45?q=80&w=1902&auto=format&fit=crop" },
+  { id: 1, user: "You", content: "Rocket mới nhìn đỉnh quáaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaàefwefewfwefrewgrg4gh54h!", time: "10:50", isSent: true, image: "https://images.unsplash.com/photo-1446941611757-91d2c3bd3d45?q=80&w=1902&auto=format&fit=crop" },
   { id: 1, user: "Elon Musk", content: "Nhắn tin hơi lâu nhaaaaaaaaaaaaaaaaaaaaaaa...", time: "10:45", isSent: false },
 
 

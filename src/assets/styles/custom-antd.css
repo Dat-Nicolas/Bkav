@@ -1,0 +1,14 @@
+.ant-select-selector {
+    border: 1px solid #d9d9d9;
+    background: red;
+}
+
+.ant-select {
+    border: none;
+    background:transparent;
+}
+
+/* 
+.ant-input-affix-wrapper {
+    width: 96%;
+} */

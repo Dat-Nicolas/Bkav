@@ -12,13 +12,13 @@ export default function CloseIcon() {
         <path
           d="M18 6L6 18"
           stroke="#222222"
-          stroke-linecap="round"
+          strokeLinecap="round"
           stroke-linejoin="round"
         />
         <path
           d="M6 6L18 18"
           stroke="#222222"
-          stroke-linecap="round"
+          strokeLinecap="round"
           stroke-linejoin="round"
         />
       </svg>

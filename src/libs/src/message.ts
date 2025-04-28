@@ -3,6 +3,10 @@ function createKeyLocalMessageT<T extends string>(obj: Record<T, T>) {
   }
   
   export const LOCALE_MESSAGE_IDS = createKeyLocalMessageT({
+    user_name:"user_name",
+    email:"email",
+    password:"password",
+    reenter_password:"reenter_password",
     input_placeholder_name: "input_placeholder_name",
     input_placeholder_password: "input_placeholder_password",
     login: "login",
@@ -18,6 +22,9 @@ function createKeyLocalMessageT<T extends string>(obj: Record<T, T>) {
     verify_email_title: "verify_email_title",
     verify_email_message: "verify_email_message",
     ok: "ok",
+    enter_otp:"enter_otp",
+    submit_otp:"submit_otp",
+
     // Thêm các key cho thông báo lỗi
     username_required: "username_required",
     username_or_email_required: "username_or_email_required",
@@ -42,6 +49,10 @@ function createKeyLocalMessageT<T extends string>(obj: Record<T, T>) {
     Record<keyof typeof LOCALE_MESSAGE_IDS, string>
   > = {
     [LOCALES.ENGLISH]: {
+      user_name:"User name",
+      email:"Email",
+      password:"Password",
+      reenter_password:"Re-enter password",
       input_placeholder_name: "Enter your email or username...",
       input_placeholder_password: "Enter your password",
       login: "Login",
@@ -58,6 +69,7 @@ function createKeyLocalMessageT<T extends string>(obj: Record<T, T>) {
       verify_email_message:
         "We have sent a verification link to your email address. Please check your inbox to complete the registration.",
       ok: "OK",
+
       // Thông báo lỗi
       username_required: "Please enter your username!",
       username_or_email_required: "Please enter your username or email!",
@@ -68,8 +80,15 @@ function createKeyLocalMessageT<T extends string>(obj: Record<T, T>) {
       passwords_not_match: "Passwords do not match!",
       dark_mode: "Dark Mode",
     light_mode: "Light Mode",
+    enter_otp:"Enter OTP",
+    submit_otp:"Submit OTP",
+
     },
     [LOCALES.VIETNAM]: {
+      user_name:"Tên tài khoản",
+      email:"Địa chỉ email",
+      password:"Mật khẩu",
+      reenter_password:"Nhập lại mật khẩu",
       input_placeholder_name: "Nhập email hoặc tên tài khoản...",
       input_placeholder_password: "Nhập mật khẩu",
       login: "Đăng nhập",
@@ -86,6 +105,7 @@ function createKeyLocalMessageT<T extends string>(obj: Record<T, T>) {
       verify_email_message:
         "Chúng tôi đã gửi một liên kết xác thực đến địa chỉ email của bạn. Vui lòng kiểm tra hòm thư của bạn để hoàn tất đăng ký.",
       ok: "OK",
+
       // Thông báo lỗi
       username_required: "Vui lòng nhập tên tài khoản!",
       username_or_email_required: "Vui lòng nhập tên tài khoản hoặc email!",
@@ -96,5 +116,7 @@ function createKeyLocalMessageT<T extends string>(obj: Record<T, T>) {
       passwords_not_match: "Mật khẩu không khớp!",
       dark_mode: "Giao diện tối",
     light_mode: "Giao diện sáng",
+    enter_otp:"Nhập OTP",
+    submit_otp:"Xác nhận OTP",
     },
   };
