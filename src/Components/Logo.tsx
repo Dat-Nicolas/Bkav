@@ -1,13 +1,13 @@
 export default function Logo() {
   return (
-    <div className="flex gap-[46px]  w-[489px] h-[135px]">
+    <div className="flex gap-[43px] w-[489px] h-[135px] select-none ">
       <svg
         width="106"
         height="130"
         viewBox="0 0 106 130"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
-        className="w-20 h-24 md:w-24 md:h-28"
+        className="mt-[5px]"
       >
         <path
           d="M53.6161 116.484C97.3351 90.5807 97.1689 80.3688 97.1689 71.4853L96.8364 61.3564C84.7014 63.0169 75.1431 64.0132 63.0082 64.3453C62.6757 74.2251 62.3432 81.4482 60.3485 90.9128H49.5434C51.2057 81.033 51.5382 73.81 51.8706 64.3453C41.0655 64.3453 30.8423 62.6848 20.0372 60.7753L20.2034 48.9859C31.0085 50.9785 41.398 51.9748 52.2031 52.639C51.5382 42.7591 50.2914 35.5361 48.6291 25.7393L58.9355 25.6563C61.9277 37.7777 63.0082 44.0045 63.0082 52.888C74.8107 52.5559 84.7015 50.8955 96.5039 49.318L96.1715 19.3465C87.943 15.7765 68.2445 8.8855 52.4524 8.8855C36.6604 8.8855 17.2944 16.4406 8.7334 19.3465V71.2362C8.7334 75.1384 8.7334 79.1235 12.058 84.354C16.3801 91.577 27.2683 101.374 53.6161 116.484Z"
@@ -31,12 +31,12 @@ export default function Logo() {
             gradientUnits="userSpaceOnUse"
             gradientTransform="translate(43.2429 24.7884) scale(81.2992 81.2088)"
           >
-            <stop offset="0.11" stopColor="#F49424" />
-            <stop offset="1" stopColor="#ED351C" />
+            <stop offset="0.11" stop-color="#F49424" />
+            <stop offset="1" stop-color="#ED351C" />
           </radialGradient>
         </defs>
       </svg>
-      <h1 className="w-[337px] h-[121px] text-[64px] font-bold text-[#F85C22]">
+      <h1 className="w-[337px] h-[121px] text-[64px] font-bold text-[#F85C22] flex items-center tracking-[0%] leading-[77px] ">
         Bkav Chat
       </h1>
     </div>

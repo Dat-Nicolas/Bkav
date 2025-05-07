@@ -5,6 +5,7 @@ import DownIcon from "../../Components/icons/DownIcon";
 import EmojiIcon from "../../Components/icons/EmojiIcon";
 import SendIcon from "../../Components/icons/SendIcon";
 import { Upload, message } from "antd";
+import { useThemeStore } from "../../store/themeStore";
 
 const props = {
   action: "https://www.mocky.io/v2/5cc8019d300000980a055e76",
@@ -25,7 +26,9 @@ export default function Chat() {
   const [isEmojiModalOpen, setIsEmojiModalOpen] = useState(false);
   const [messageText, setMessageText] = useState("");
   const inputRef = useRef(null);
+  const theme = useThemeStore((state) => state.theme);
 
+  
   const emojis = [
     "😊", "😂", "👍", "❤️", "😍", "😢", "😎", "😡", "🙌", "🔥",
     "😜", "🤔", "🥰", "😱", "😭", "😇", "😴", "😅", "😁", "🤗",
@@ -90,7 +93,7 @@ export default function Chat() {
             value={messageText}
             onChange={(e) => setMessageText(e.target.value)}
             ref={inputRef}
-            className="w-full h-[40px] overflow-hidden p-2 px-4 border rounded-full bg-[#DBDDE1] focus:outline-none focus:ring-1 focus:ring-blue-500"
+            className={`w-full h-[40px] overflow-hidden p-2 px-4 border rounded-full  focus:outline-none focus:ring-1 focus:ring-blue-500 ${theme === "dark" ? "bg-gray-700 text-white" : "text-black bg-[#DBDDE1]"}`}
           />
           <button
             className="absolute right-3 top-1/2 transform -translate-y-1/2 emoji-icon"

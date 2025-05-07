@@ -345,12 +345,11 @@ const { Text } = Typography;
 import { Link, useNavigate } from "react-router";
 import { LOCALE_MESSAGE_IDS } from "../libs/src/message";
 import { FormattedMessage, useIntl } from "react-intl";
-import { CloseOutlined } from '@ant-design/icons';
 import { useGoogleLogin } from "@react-oauth/google";
+import { CloseCircleFilled } from '@ant-design/icons';
 
-const handleClear = (e) => {
-  e.preventDefault();
-};
+const CustomClearIcon = <CloseCircleFilled style={{ fontSize: 24 }} />;
+
 
 export default function LoginForm() {
   const [isLoginSuccessful, setIsLoginSuccessful] = useState(false);
@@ -411,10 +410,10 @@ export default function LoginForm() {
 
 
   return (
-    <div className="w-[617px] max-lg:w-screen  h-[698px] flex flex-col gap-[30px]">
+    <div className="w-[617px] max-lg:w-screen max-md:w-[110px] max-sm:ml-20 h-[698px] flex flex-col gap-[10px] max-lg:pl-85 max-sm:pl-0  pt-25">
       {isLoginSuccessful ? (
         <div className="flex flex-col gap-5">
-          <p className="text-[48px] w-full h-[86px] font-normal leading text-center ">
+          <p className="text-[48px] w-[617px]  h-[86px] font-normal leading text-center ">
             <FormattedMessage id={LOCALE_MESSAGE_IDS.enter_otp} defaultMessage="Enter OTP" />
           </p>
           <div className="w-full flex justify-center gap-2">
@@ -427,7 +426,7 @@ export default function LoginForm() {
                 value={value}
                 onChange={(e) => handleOtpChange(e, index)}
                 onKeyDown={(e) => handleOtpBackspace(e, index)}
-                className="w-[50px] h-[60px] text-center"
+                className="w-[50px] h-[60px] border bg-[#F6F6F6] text-center"
                 placeholder=""
                 autoFocus={index === 0}
               />
@@ -438,17 +437,17 @@ export default function LoginForm() {
           </Button>
         </div>
       ) : (
-        <div>
-          <p className="text-[48px] w-full h-[86px] font-normal leading text-center ">
+        <div className="flex flex-col gap-[30px]">
+          <p className="text-[48px] w-[617px] max-sm:w-screen  h-[86px] font-normal leading  text-center select-none">
             <FormattedMessage id={LOCALE_MESSAGE_IDS.login} />
           </p>
           <Form
             name="login"
-            className="flex flex-col gap-5"
+            className="flex flex-col gap-[25px]"
             initialValues={{ remember: true }}
             onFinish={handleLogin}
           >
-            <div className="w-full h-[77px]">
+            <div className="w-[617px] max-sm:w-screen h-[77px]">
               <Form.Item
                 name="usernameOrEmail"
                 rules={[
@@ -462,20 +461,27 @@ export default function LoginForm() {
                 ]}
               >
                 <Input
+                allowClear={{ clearIcon: CustomClearIcon }}
                   type="text"
-                  style={{ backgroundColor: "#e8f0fe" }}
-                  className="w-full h-[60px]"
+                  style={{ backgroundColor: "#e8f0fe",
+                    fontSize: 19,
+                    lineHeight: '77px',
+                    letterSpacing: '9%',
+                    fontWeight: 400,
+                    verticalAlign : 'middle' ,
+                    paddingLeft : '32px' ,
+                  }}
+                  className="w-full  h-[60px]"
                   tabIndex={1}
                   placeholder={intl.formatMessage({
                     id: LOCALE_MESSAGE_IDS.input_placeholder_name,
                     defaultMessage: "Enter your email or username...",
                   })}
-                  suffix={<CloseOutlined onClick={handleClear} style={{ cursor: "pointer" }} />}
                 />
               </Form.Item>
             </div>
 
-            <div className="w-full h-[77px]">
+            <div className="w-[617px] max-sm:w-screen h-[77px]">
               <Form.Item
                 name="password"
                 rules={[
@@ -490,7 +496,15 @@ export default function LoginForm() {
               >
                 <Input.Password
                   className="w-full h-[60px]"
-                  style={{ backgroundColor: "#e8f0fe" }}
+                  style={{ backgroundColor: "#e8f0fe",
+                    fontSize: 19,
+                    lineHeight: '77px',
+                    letterSpacing: '9%',
+                    fontWeight: 400,
+                    verticalAlign : 'middle' ,
+                    paddingLeft : '32px' ,
+                  }}
+                  
                   tabIndex={1}
                   placeholder={intl.formatMessage({
                     id: LOCALE_MESSAGE_IDS.input_placeholder_password,
@@ -500,16 +514,16 @@ export default function LoginForm() {
               </Form.Item>
             </div>
 
-            <div className="text-right text-gray-900">
-              <Link to="#">
-                <div className="text-[#000] italic text-[23px] font-normal leading-[100%] tracking-0%">
+            <div className="text-right text-gray-900 pb-[10px]">
+              <Link to="/forgot-password">
+                <div className="text-[#000] w-[617px] max-sm:w-screen italic text-[23px] font-normal leading-[100%] tracking-[0%] ">
                   <FormattedMessage id={LOCALE_MESSAGE_IDS.forgot_password} />
                 </div>
               </Link>
             </div>
 
             <Form.Item>
-              <Button type="primary" htmlType="submit" className="w-full max-md:w-[96%] btn">
+              <Button type="primary" htmlType="submit" className="w-[617px] select-none max-sm:w-screen btn ">
                 <FormattedMessage id={LOCALE_MESSAGE_IDS.login} />
               </Button>
             </Form.Item>
@@ -517,7 +531,7 @@ export default function LoginForm() {
         </div>
       )}
 
-      <div className="text-right w-full italic font-normal size-[23px] h-[30px] leading-[100%] tracking-0%">
+      <div className="text-right w-[617px] max-sm:w-screen italic font-normal size-[23px] h-[30px] leading-[100%] tracking-0%  select-none pb-[48px]">
         <Text>
           <FormattedMessage id={LOCALE_MESSAGE_IDS.donot_account} />{" "}
           <Link to="/signup">
@@ -526,23 +540,23 @@ export default function LoginForm() {
         </Text>
       </div>
 
-      <div className="text-center">
-        <div className="flex flex-col justify-center gap-10">
-          <div className="w-full flex items-center">
+      <div className="text-center w-[617px] max-sm:w-screen">
+        <div className="flex flex-col justify-center ">
+          <div className="w-full flex items-center pb-[20px]">
             <div className="flex-1 flex w-full h-[1px] border-t-1 border-[#DFDFDF]"></div>
-            <div className="px-5">
+            <div className="px-8 select-none font-medium text-[14px] leading-[77px] tracking-[9%] text-[#ACADAC]">
               <FormattedMessage id={LOCALE_MESSAGE_IDS.or} />
             </div>
             <div className="w-full flex-1 flex h-[1px] border-t-1 border-[#DFDFDF]"></div>
           </div>
           <div className="flex w-full justify-center gap-[25px]">
-            <div  onClick={() => login()}  className="flex justify-center items-center border border-[#DDDFDD] rounded-[10px] w-[117px] h-[60px] bg-[#F6F6F6] hover:bg-[#FFFFFF] hover:border-none hover:shadow-[0_0_10px_rgba(0,0,0,0.13)] cursor-pointer">
+            <div  onClick={() => login()}  className="w-[117px] h-[60px] flex justify-center items-center rounded-[10px] ring-1  ring-[#DDDFDD]  hover:shadow-lg hover:bg-white hover:ring-[#F6F6F6] cursor-pointer">
               <img src={google} alt="Google" className="w-7 h-7" />
             </div>
-            <div  className="flex justify-center items-center border border-[#DDDFDD] rounded-[10px] w-[117px] h-[60px] bg-[#F6F6F6] hover:bg-[#FFFFFF] hover:border-none hover:shadow-[0_0_10px_rgba(0,0,0,0.13)] cursor-pointer">
+            <div  className="w-[117px] h-[60px] flex justify-center items-center rounded-[10px] ring-1  ring-[#DDDFDD]  hover:shadow-lg hover:bg-white hover:ring-[#F6F6F6] cursor-pointer">
               <img src={apple} alt="Apple" className="w-7 h-7" />
             </div>
-            <div className="flex justify-center items-center border border-[#DDDFDD] rounded-[10px] w-[117px] h-[60px] bg-[#F6F6F6] hover:bg-[#FFFFFF] hover:border-none hover:shadow-[0_0_10px_rgba(0,0,0,0.13)] cursor-pointer">
+            <div className="w-[117px] h-[60px] flex justify-center items-center rounded-[10px] ring-1  ring-[#DDDFDD]  hover:shadow-lg hover:bg-white hover:ring-[#F6F6F6] cursor-pointer">
               <img src={facebook} alt="Facebook" className="w-7 h-7" />
             </div>
           </div>

@@ -10,6 +10,7 @@ import BackIcon from "./icons/BackIcon";
 import EditIcon from "./icons/EditIcon";
 import PinIcon from "./icons/PinIcon";
 import DoubleDoneIcon from "./icons/DoubleDoneIcon";
+import { useThemeStore } from "../store/themeStore";
 
 export default function ChatContent() {
   const { id } = useParams();
@@ -45,16 +46,18 @@ export default function ChatContent() {
   const handleClickOutside = (e) => {
     if (
       isOpenEmojiIndex !== null &&
-      !e.target.closest(".emoji-modal") &&
-      !e.target.closest(".emoji-icon")
+      !e.target.closest(".emoji-icon") &&
+      !e.target.closest(".option-icon-left") &&
+      !e.target.closest(".option-icon-right")
     ) {
       setOpenEmojiIndex(null);
     }
 
     if (
       isOpenOptionIndex !== null &&
-      !e.target.closest(".option-icon") &&
-      !e.target.closest(".option-modal")
+      !e.target.closest(".emoji-icon") &&
+      !e.target.closest(".option-icon-right") &&
+      !e.target.closest(".option-icon-left")
     ) {
       setOpenOptionIndex(null);
     }
@@ -67,11 +70,23 @@ export default function ChatContent() {
       );
       setMessageToDelete(null);
       setModalDeleteContent(false);
+      setIsDeleteModalOpen(false);
       setDeletedSuccess(true);
-
       setTimeout(() => setDeletedSuccess(false), 2000);
     }
   };
+
+  const handleOpenDeleteModal = (index) => {
+    setMessageToDelete(index);
+    setModalDeleteContent(true);
+    setIsDeleteModalOpen(true);
+  };
+
+  const handleCloseDeleteModal = () => {
+    setModalDeleteContent(false);
+    setIsDeleteModalOpen(false);
+  };
+  const theme = useThemeStore((state) => state.theme);
 
   return (
     <div
@@ -79,7 +94,7 @@ export default function ChatContent() {
       onClick={handleClickOutside}
     >
       {/* Chat Header */}
-      <div className="fixed top-0 h-[60px] w-full p-2 bg-white border-b border-gray-200 flex items-center z-10">
+      <div className={`fixed top-0 h-[60px] w-full p-2  border-b border-gray-200 flex items-center  ${theme === "dark" ? "bg-gray-800 text-gray-600" : "bg-white"}`}>
         <div className="flex items-center gap-3">
           <div className="flex items-center">
             <div className="relative">
@@ -103,7 +118,7 @@ export default function ChatContent() {
       </div>
 
       {/* Chat Messages */}
-      <div className="flex-1   px-[8px] py-[4px]  overflow-y-auto">
+      <div className="flex-1   px-[8px] pt-[8px]  overflow-y-auto">
         {userMessages.length > 0 ? (
           userMessages.map((msg, index) => (
             <div
@@ -155,7 +170,7 @@ export default function ChatContent() {
 
                       <div
                         onClick={() => toggleOptionModal(index)}
-                        className="option-icon"
+                        className="option-icon-left"
                       >
                         <OptionIcon />
                         {isOpenOptionIndex === index && (
@@ -174,10 +189,7 @@ export default function ChatContent() {
                             </div>
                             <div
                               className="flex items-center gap-2 px-2 py-1 hover:bg-gray-200 text-red-500 cursor-pointer"
-                              onClick={() => (
-                                setMessageToDelete(index),
-                                setModalDeleteContent(true)
-                              )}
+                              onClick={() => handleOpenDeleteModal(index)}
                             >
                               <TrashIcon />
                               Xóa tin nhắn
@@ -215,7 +227,7 @@ export default function ChatContent() {
                       />
                     )}
                     {msg.content && (
-                      <p className="w-[250px] text-left p-2 break-words">
+                      <p className="w-[250px] max-lg:w-[180px] text-left p-2 break-words">
                         {msg.content}
                       </p>
                     )}
@@ -260,7 +272,7 @@ export default function ChatContent() {
 
                       <div
                         onClick={() => toggleOptionModal(index)}
-                        className="option-icon"
+                        className="option-icon-right"
                       >
                         <OptionIcon />
                         {isOpenOptionIndex === index && (
@@ -277,49 +289,11 @@ export default function ChatContent() {
                               <PinIcon />
                               Ghim
                             </div>
-                            <div className="flex items-center gap-2 px-2 py-1 hover:bg-gray-200 text-red-500 cursor-pointer">
+                            <div className="flex items-center gap-2 px-2 py-1 hover:bg-gray-200 text-red-500 cursor-pointer"
+                             onClick={() => handleOpenDeleteModal(index)}>
                               <TrashIcon />
                               Xóa tin nhắn
                             </div>
-                            {isModalDeleteContent && (
-                              <>
-                                <div
-                                  className="fixed inset-0 bg-black opacity-50 z-40"
-                                  onClick={() => setModalDeleteContent(false)}
-                                />
-                                <div className="fixed z-50 top-1/2 left-1/2 w-[300px] p-6 bg-white rounded-xl shadow-xl transform -translate-x-1/2 -translate-y-1/2 text-black">
-                                  <h2 className="text-lg font-semibold mb-4">
-                                    Xóa tin nhắn
-                                  </h2>
-                                  <p className="text-sm text-gray-600 mb-6">
-                                    Bạn có chắc chắn muốn xóa tin nhắn này ?
-                                  </p>
-                                  <div className="flex justify-end gap-3">
-                                    <button
-                                      className="px-2 py-1 rounded bg-gray-200 text-gray-700 hover:bg-gray-300 cursor-pointer"
-                                      onClick={() =>
-                                        setModalDeleteContent(false)
-                                      }
-                                    >
-                                      Hủy bỏ
-                                    </button>
-                                    <div
-                                      className="px-2 py-1 rounded bg-red-500 text-white hover:bg-red-600"
-                                      onClick={() =>
-                                        setModalDeleteContent(false)
-                                      }
-                                    >
-                                      Xóa
-                                      {deletedSuccess && (
-                                        <div className="fixed top-20 left-1/2 transform -translate-x-1/2 bg-green-500 text-white px-4 py-2 rounded-lg shadow-lg z-50">
-                                          Đã xóa tin nhắn thành công!
-                                        </div>
-                                      )}
-                                    </div>
-                                  </div>
-                                </div>
-                              </>
-                            )}
                           </div>
                         )}
                       </div>
@@ -347,6 +321,42 @@ export default function ChatContent() {
           </div>
         )}
       </div>
+      {/* Delete Confirmation Modal */}
+      {isModalDeleteContent && (
+        <>
+          <div
+            className="fixed inset-0 bg-black opacity-50 z-99999"
+            onClick={handleCloseDeleteModal}
+          />
+          <div className="fixed z-99999 top-1/2 left-1/2 w-[300px] p-6 bg-white rounded-xl shadow-xl transform -translate-x-1/2 -translate-y-1/2 text-black">
+            <h2 className="text-lg font-semibold mb-4">Xóa tin nhắn</h2>
+            <p className="text-sm text-gray-600 mb-6">
+              Bạn có chắc chắn muốn xóa tin nhắn này?
+            </p>
+            <div className="flex justify-end gap-3">
+              <button
+                className="px-2 py-1 rounded bg-gray-200 text-gray-700 hover:bg-gray-300 cursor-pointer"
+                onClick={handleCloseDeleteModal}
+              >
+                Hủy bỏ
+              </button>
+              <button
+                className="px-2 py-1 rounded bg-red-500 text-white hover:bg-red-600 cursor-pointer"
+                onClick={confirmDeleteMessage}
+              >
+                Xóa
+              </button>
+            </div>
+          </div>
+        </>
+      )}
+
+      {/* Success Notification */}
+      {deletedSuccess && (
+        <div className="fixed top-20 left-1/2 transform -translate-x-1/2 bg-green-500 text-white px-4 py-2 rounded-lg shadow-lg z-50">
+          Đã xóa tin nhắn thành công!
+        </div>
+      )}
     </div>
   );
 }
