@@ -102,7 +102,7 @@ export default function Chat() {
             <EmojiIcon />
           </button>
           {isEmojiModalOpen && (
-            <div className="absolute bottom-12 right-0 bg-white border border-gray-200 rounded-lg shadow-lg p-3 grid grid-cols-5 gap-2 max-h-[200px] overflow-y-auto emoji-modal z-10">
+            <div className="absolute bottom-12 right-0 bg-white border border-gray-200 rounded-lg shadow-lg p-3 grid grid-cols-5 gap-2 max-h-[200px] overflow-y-auto emoji-modal ">
               {emojis.map((emoji, index) => (
                 <button
                   key={index}

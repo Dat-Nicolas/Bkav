@@ -31,24 +31,24 @@ const RegisterForm = () => {
 
 
   return (
-    <div className="w-[617px]  max-lg:w-full  h-[668px]  flex flex-col lg:gap-[30px]  pt-12">
-      <p className="text-[48px]    w-full  h-[86px] font-normal leading text-center select-none">
+    <div className="w-[617px]  max-lg:w-full  h-[668px]  flex flex-col gap-[30px]  pt-12">
+      <p className="text-[48px]    w-full  h-[86px] font-normal leading text-center select-none  mb-2">
         <FormattedMessage id={LOCALE_MESSAGE_IDS.register} />
       </p>
 
       <Form
-        className=" max-lg:w-[400px]   [&_.ant-form-item-label select-none"
+        className="[&_.ant-form-item-label select-none"
         name="register"
         layout="horizontal"
         labelAlign="left"
         requiredMark={false}
         labelCol={{ span: 8 }}
         wrapperCol={{ span: 16 }}
-        style={{ maxWidth: 600, width: "100%" }}
+        style={{ maxWidth: 613, width: "100%" }}
         initialValues={{ remember: true }}
         onFinish={onFinish}
       >
-        <div className="flex flex-col gap-[25px] max-sm:gap-[15px]">
+        <div className="flex flex-col gap-[25px] max-sm:gap-[15px] pb-[15px]">
           <Form.Item
             label={intl.formatMessage({
               id: LOCALE_MESSAGE_IDS.user_name,
@@ -66,9 +66,9 @@ const RegisterForm = () => {
             ]}
           >
             <Input
-              className="form-input-custom "
+              className="form-input-custom md:ml-[5px]"
               allowClear={{ clearIcon: CustomClearIcon }}
-              style={{ backgroundColor: "#e8f0fe", height: 60, marginLeft: 20 }}
+              style={{ backgroundColor: "#e8f0fe", height: 60}}
               placeholder={intl.formatMessage({
                 id: LOCALE_MESSAGE_IDS.input_placeholder_username,
               })}
@@ -92,10 +92,10 @@ const RegisterForm = () => {
             ]}
           >
             <Input
-              className="form-input-custom"
+              className="form-input-custom md:ml-[5px]"
               allowClear={{ clearIcon: CustomClearIcon }}
               type="email"
-              style={{ backgroundColor: "#e8f0fe", height: 60, marginLeft: 20 }}
+              style={{ backgroundColor: "#e8f0fe", height: 60 }}
               placeholder={intl.formatMessage({
                 id: LOCALE_MESSAGE_IDS.input_placeholder_email,
               })}
@@ -119,8 +119,8 @@ const RegisterForm = () => {
             ]}
           >
             <Input.Password
-              className="form-input-custom"
-              style={{ backgroundColor: "#e8f0fe", height: 60, marginLeft: 20 }}
+              className="form-input-custom md:ml-[5px]"
+              style={{ backgroundColor: "#e8f0fe", height: 60 }}
               placeholder={intl.formatMessage({
                 id: LOCALE_MESSAGE_IDS.input_placeholder_password,
               })}
@@ -154,13 +154,14 @@ const RegisterForm = () => {
             ]}
           >
             <Input.Password
-              className="form-input-custom"
-              style={{ backgroundColor: "#e8f0fe", height: 60, marginLeft: 20 }}
+              className="form-input-custom md:ml-[5px]"
+              style={{ backgroundColor: "#e8f0fe", height: 60}}
               placeholder={intl.formatMessage({
                 id: LOCALE_MESSAGE_IDS.input_placeholder_confirm_password,
               })}
             />
           </Form.Item>
+          </div>
           <Form.Item
             labelCol={{ span: 8 }}
             wrapperCol={{ span: 16 }}
@@ -169,15 +170,14 @@ const RegisterForm = () => {
             <Button
               type="primary"
               htmlType="submit"
-              className="w-[400px] max-lg:w-full lg:ml-[220px] max-lg:ml-[140px] max-md:ml-auto  max-sm:ml-0 btn "
+              className="lg:w-[408px] md:w-[485px] max-md:w-[480px]  max-sm:w-full    lg:ml-[210px] max-lg:ml-0 max-md:flex max-md:justify-center  max-md:ml-0 btn "
             >
               <FormattedMessage id={LOCALE_MESSAGE_IDS.register} />
             </Button>
           </Form.Item>
-        </div>
       </Form>
 
-      <div className="text-left max-lg:text-right  max-sm:text-center  lg:ml-[220px]   max-sm:ml-0   w-[400px] italic font-normal size-[23px] mb-4 h-[30px] leading-[100%] tracking-0% select-none">
+      <div className="text-left max-lg:text-right  max-md:text-center  lg:ml-[210px]   max-sm:ml-0   w-[408px] max-lg:w-full italic font-normal size-[23px] mb-4 h-[30px] leading-[100%] tracking-0% select-none">
         <Text>
           <FormattedMessage id={LOCALE_MESSAGE_IDS.already_have_account} />{" "}
           <Link to="/login">

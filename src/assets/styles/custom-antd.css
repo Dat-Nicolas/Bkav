@@ -96,3 +96,10 @@
     background-color: rgba(0,0,0,0.5) !important; 
   }
    */
+
+
+
+.custom-input-otp {
+    height: 100px;
+    font-size: 30px;
+}

@@ -34,19 +34,9 @@ export default function MainLayout() {
       }`}
     >
       <Sidebar />
-      <div className="flex-1 flex flex-col">
-        <div className="p-4">
-          <button
-            onClick={toggleTheme}
-            className="p-2 rounded bg-gray-300 dark:bg-gray-700 text-black dark:text-white"
-          >
-            Switch to {theme === "light" ? "Dark" : "Light"} Mode
-          </button>
-        </div>
-        <div className="flex-1">
+        <div className="flex-1 ">
           <Outlet />
         </div>
-      </div>
     </div>
   );
 }

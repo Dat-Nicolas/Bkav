@@ -152,7 +152,7 @@ export default function ChatContent() {
                       >
                         <EmojiIcon />
                         {isOpenEmojiIndex === index && (
-                          <div className="absolute w-60 top-[-50px] left-[-20px] bg-white border border-gray-200 rounded-lg shadow-lg grid grid-cols-6 emoji-modal z-10">
+                          <div className="absolute w-60 top-[-50px] left-[-20px] bg-white border border-gray-200 rounded-lg shadow-lg grid grid-cols-6 emoji-modal ">
                             {emojiIcons.map((emoji, emojiIndex) => (
                               <button
                                 key={emojiIndex}
@@ -174,7 +174,7 @@ export default function ChatContent() {
                       >
                         <OptionIcon />
                         {isOpenOptionIndex === index && (
-                          <div className="absolute top-0 md:left-[-150px]  left-[-135px] rounded-xl bg-gray-100 w-35 shadow-[0_0_10px_rgba(0,0,0,0.2)] z-10 cursor-pointer">
+                          <div className="absolute top-0 md:left-[-150px]  left-[-135px] rounded-xl bg-gray-100 w-35 shadow-[0_0_10px_rgba(0,0,0,0.2)]  cursor-pointer">
                             <div className="flex items-center gap-2 px-2 py-1 hover:bg-gray-200">
                               <BackIcon />
                               Trả lời
@@ -254,7 +254,7 @@ export default function ChatContent() {
                       >
                         <EmojiIcon />
                         {isOpenEmojiIndex === index && (
-                          <div className="absolute w-60 top-[-50px] right-[-20px] bg-white border border-gray-200 rounded-lg shadow-lg grid grid-cols-6 emoji-modal z-10">
+                          <div className="absolute w-60 top-[-50px] right-[-20px] bg-white border border-gray-200 rounded-lg shadow-lg grid grid-cols-6 emoji-modal ">
                             {emojiIcons.map((emoji, emojiIndex) => (
                               <button
                                 key={emojiIndex}
@@ -276,7 +276,7 @@ export default function ChatContent() {
                       >
                         <OptionIcon />
                         {isOpenOptionIndex === index && (
-                          <div className="absolute top-0 left-[80px] rounded-xl bg-gray-100 w-35 shadow-[0_0_10px_rgba(0,0,0,0.2)] z-10">
+                          <div className="absolute top-0 left-[80px] rounded-xl bg-gray-100 w-35 shadow-[0_0_10px_rgba(0,0,0,0.2)] ">
                             <div className="flex items-center gap-2 px-2 py-1 hover:bg-gray-200">
                               <BackIcon />
                               Trả lời
@@ -325,10 +325,10 @@ export default function ChatContent() {
       {isModalDeleteContent && (
         <>
           <div
-            className="fixed inset-0 bg-black opacity-50 z-99999"
+            className="fixed inset-0  bg-black opacity-50 "
             onClick={handleCloseDeleteModal}
           />
-          <div className="fixed z-99999 top-1/2 left-1/2 w-[300px] p-6 bg-white rounded-xl shadow-xl transform -translate-x-1/2 -translate-y-1/2 text-black">
+          <div className="fixed  top-1/2 left-1/2 w-[300px] p-6 bg-white rounded-xl shadow-xl transform -translate-x-1/2 -translate-y-1/2 text-black">
             <h2 className="text-lg font-semibold mb-4">Xóa tin nhắn</h2>
             <p className="text-sm text-gray-600 mb-6">
               Bạn có chắc chắn muốn xóa tin nhắn này?
@@ -353,7 +353,7 @@ export default function ChatContent() {
 
       {/* Success Notification */}
       {deletedSuccess && (
-        <div className="fixed top-20 left-1/2 transform -translate-x-1/2 bg-green-500 text-white px-4 py-2 rounded-lg shadow-lg z-50">
+        <div className="fixed top-20 left-1/2 transform -translate-x-1/2 bg-green-500 text-white px-4 py-2 rounded-lg shadow-lg ">
           Đã xóa tin nhắn thành công!
         </div>
       )}
