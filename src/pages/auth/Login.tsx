@@ -19,7 +19,7 @@ export default function Login() {
         <div className="absolute top-[557px] left-[346px] w-[226px] h-[226px] bg-[#4461F2] blur-[150px]"></div>
       </div>
 
-      <div className="  2xl:w-1/2   max-2xl:w-full  flex flex-col items-center sm:justify-center p-4 pb-[140px] 2xl:pl-[110px]">
+      <div className="  2xl:w-1/2   max-2xl:w-full  flex flex-col items-center sm:justify-center p-4 pb-[100px] 2xl:pl-[110px]">
         <div className="w-full  max-w-[350px] 2xl:ml-[80px]  max-sm:hidden max-lg:flex max-lg:justify-center">
           <Navauth />
         </div>

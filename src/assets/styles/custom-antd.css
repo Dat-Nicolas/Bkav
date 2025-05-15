@@ -117,3 +117,10 @@
 .rounded-content-right {
     border-radius: 16px 16px 2px 16px !important;
 }
+
+@media (max-width: 576px) {
+  .form-input-custom {
+    height: 40px !important;
+  }
+}
+

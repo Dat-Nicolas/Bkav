@@ -16,13 +16,13 @@ export default function ChatIcon() {
           d="M8.5 9.5L15.5 9.5"
           stroke="#D1D5DB"
           strokeLinecap="round"
-          stroke-linejoin="round"
+          strokeLinejoin="round"
         />
         <path
           d="M8.5 12.5L13.5 12.5"
           stroke="#D1D5DB"
           strokeLinecap="round"
-          stroke-linejoin="round"
+          strokeLinejoin="round"
         />
       </svg>
     </div>

@@ -19,8 +19,8 @@ export default function Register() {
         <div className="absolute top-[557px] w-[226px] h-[226px] bg-[#4461F2] blur-[137px]"></div>
       </div>
 
-      <div className="w-full  2xl:w-1/2 flex flex-col items-center sm:justify-center gap-10  sm:pb-[135px]  2xl:pr-15 ">
-        <div className="w-full  xl:w-[350px]  2xl:ml-[220px]   max-xl:flex max-xl:justify-center max-sm:hidden  max-xl:items-center ">
+      <div className="w-full  2xl:w-1/2 flex flex-col items-center sm:justify-center   sm:pb-[108px]  2xl:pr-15 ">
+        <div className="w-full  xl:w-[350px]  2xl:ml-[220px]   max-xl:flex max-xl:justify-center max-sm:hidden   max-xl:items-center ">
           <Navauth />
         </div>
         <div className="w-full max-w-[617px] p-8">

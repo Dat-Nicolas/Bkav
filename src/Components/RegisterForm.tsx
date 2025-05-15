@@ -44,8 +44,8 @@ const RegisterForm = () => {
 
 
   return (
-    <div className="w-[617px]  max-lg:w-full  h-[668px]  flex flex-col gap-[30px]  sm:pt-12">
-      <p className="text-[48px]    w-full  h-[86px] font-normal leading text-center select-none  mb-2">
+    <div className="w-[617px]  max-lg:w-full  h-[668px] max-sm:h-auto  flex flex-col gap-[30px] max-sm:gap-5  sm:pt-12">
+      <p className="text-[48px]  max-md:text-[30px]  w-full  h-[86px] max-md:h-[30px] font-normal leading text-center select-none  mb-4">
         <FormattedMessage id={LOCALE_MESSAGE_IDS.register} />
       </p>
 
@@ -79,7 +79,7 @@ const RegisterForm = () => {
             ]}
           >
             <Input
-              className="form-input-custom md:ml-[5px]"
+              className="form-input-custom md:ml-[5px] max-sm:h-[40px]"
               allowClear={{ clearIcon: CustomClearIcon }}
               style={{ backgroundColor: "#e8f0fe", height: 60}}
               placeholder={intl.formatMessage({
@@ -105,7 +105,7 @@ const RegisterForm = () => {
             ]}
           >
             <Input
-              className="form-input-custom md:ml-[5px]"
+              className="form-input-custom md:ml-[5px] max-sm:h-[40px]"
               allowClear={{ clearIcon: CustomClearIcon }}
               type="email"
               style={{ backgroundColor: "#e8f0fe", height: 60 }}
@@ -140,7 +140,7 @@ const RegisterForm = () => {
             ]}
           >
             <Input.Password
-              className="form-input-custom md:ml-[5px]"
+              className="form-input-custom md:ml-[5px] max-sm:h-[40px]"
               style={{ backgroundColor: "#e8f0fe", height: 60 }}
               placeholder={intl.formatMessage({
                 id: LOCALE_MESSAGE_IDS.input_placeholder_password,
@@ -183,7 +183,7 @@ const RegisterForm = () => {
             ]}
           >
             <Input.Password
-              className="form-input-custom md:ml-[5px]"
+              className="form-input-custom md:ml-[5px] "
               style={{ backgroundColor: "#e8f0fe", height: 60}}
               placeholder={intl.formatMessage({
                 id: LOCALE_MESSAGE_IDS.input_placeholder_confirm_password,
@@ -192,14 +192,12 @@ const RegisterForm = () => {
           </Form.Item>
           </div>
           <Form.Item
-            labelCol={{ span: 8 }}
-            wrapperCol={{ span: 16 }}
             style={{ marginBottom: 0 }}
           >
             <Button
               type="primary"
               htmlType="submit"
-              className="lg:w-[408px] max-lg:w-3/2 max-sm:w-full lg:ml-[210px] max-lg:ml-0 max-md:flex max-md:justify-center  max-md:ml-0 btn "
+              className="w-[408px]  max-xl:w-full max-lg:w-3/2 max-sm:w-full  lg:ml-[210px] max-lg:ml-0 max-md:flex max-md:justify-center  max-md:ml-0 btn "
             >
               <FormattedMessage id={LOCALE_MESSAGE_IDS.register} />
             </Button>

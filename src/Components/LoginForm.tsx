@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { Form, Input, Button, Typography, notification } from "antd";
 import google from "../assets/images/Gg-Icon.jpg";
 import facebook from "../assets/images/Fb-Icon.jpg";
@@ -19,51 +19,53 @@ export default function LoginForm() {
   const intl = useIntl();
   const navigate = useNavigate();
   const [api, contextHolder] = notification.useNotification();
+  const otpRefs = useRef([]);
 
- const handleLogin = async (values) => {
-  try {
-    const response = await loginApi({
-      usernameOrEmail: values.usernameOrEmail,
-      password: values.password,
-    });
+  const handleLogin = async (values) => {
+    try {
+      const response = await loginApi({
+        usernameOrEmail: values.usernameOrEmail,
+        password: values.password,
+      });
 
-    const token = response.data.token;
-    localStorage.setItem("token", token);
+      const token = response.data.token;
+      localStorage.setItem("token", token);
 
-    setIsLoginSuccessful(true);
+      setIsLoginSuccessful(true);
 
-    api.success({
-      message: "Đăng nhập thành công!",
-      description: "Chào mừng bạn quay lại.",
-      placement: "topRight",
-    });
-  } catch (error) {
-    api.error({
-      message: "Đăng nhập thất bại",
-      description:
-        error.response?.data?.message ||
-        "Vui lòng kiểm tra lại thông tin đăng nhập.",
-      placement: "topRight",
-    });
-  }
-};
-
+      api.success({
+        message: "Đăng nhập thành công!",
+        description: "Chào mừng bạn quay lại.",
+        placement: "topRight",
+      });
+    } catch (error) {
+      api.error({
+        message: "Đăng nhập thất bại",
+        description:
+          error.response?.data?.message ||
+          "Vui lòng kiểm tra lại thông tin đăng nhập.",
+        placement: "topRight",
+      });
+    }
+  };
 
   const handleOtpChange = (e, index) => {
     const value = e.target.value;
     const updatedOtp = [...otp];
     updatedOtp[index] = value;
 
-    if (value && index < otp.length - 1) {
-      document.getElementById(`otp-input-${index + 1}`).focus();
-    }
-
     setOtp(updatedOtp);
+
+    // Tự động focus sang ô tiếp theo nếu có giá trị
+    if (value && index < otp.length - 1) {
+      otpRefs.current[index + 1]?.focus();
+    }
   };
+
   const handleOtpBackspace = (e, index) => {
     if (e.key === "Backspace" && otp[index] === "") {
       if (index > 0) {
-        document.getElementById(`otp-input-${index - 1}`).focus();
+        otpRefs.current[index - 1]?.focus();
       }
     }
   };
@@ -111,7 +113,7 @@ export default function LoginForm() {
   });
 
   return (
-    <div className="w-[617px]  max-lg:w-full  h-[698px] max-sm:h-auto flex flex-col gap-[10px] ml-0 sm:pt-25 ">
+    <div className="w-[617px]  max-lg:w-full  h-[698px] max-sm:h-auto flex flex-col gap-[10px] ml-0 sm:pt-[75px] ">
       {contextHolder}
 
       {isLoginSuccessful ? (
@@ -123,23 +125,20 @@ export default function LoginForm() {
             />
           </p>
           <div className="w-full flex justify-center gap-2 mb-30 mt-10">
-            {otp.map((value, index) => {
-              return (
-                <Input
-                  style={{ backgroundColor: "#e8f0fe" }}
-                  key={index}
-                  id={`otp-input-${index}`}
-                  type="text"
-                  maxLength={1}
-                  value={value}
-                  onChange={(e) => handleOtpChange(e, index)}
-                  onKeyDown={(e) => handleOtpBackspace(e, index)}
-                  className="w-[50px] h-[60px] border bg-[#F6F6F6] text-center custom-input-otp"
-                  placeholder=""
-                  autoFocus={index === 0}
-                />
-              );
-            })}
+            {otp.map((value, index) => (
+              <Input
+                key={index}
+                style={{ backgroundColor: "#e8f0fe" }}
+                ref={(el) => (otpRefs.current[index] = el)}
+                type="text"
+                maxLength={1}
+                value={value}
+                onChange={(e) => handleOtpChange(e, index)}
+                onKeyDown={(e) => handleOtpBackspace(e, index)}
+                className="w-[50px] h-[60px] border  text-center custom-input-otp"
+                placeholder=""
+              />
+            ))}
           </div>
           <Button
             type="primary"
