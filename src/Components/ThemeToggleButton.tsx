@@ -1,4 +1,4 @@
-import { useThemeStore } from '../store/themeStore'
+import { useThemeStore } from '../store/themeSlice'
 
 export default function ThemeToggleButton() {
   const theme = useThemeStore((state) => state.theme)

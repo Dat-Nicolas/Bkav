@@ -1,5 +1,4 @@
-
-import  { useState } from "react";
+import { useState } from "react";
 import { Form, Input, Button, Typography, notification } from "antd";
 import google from "../assets/images/Gg-Icon.jpg";
 import facebook from "../assets/images/Fb-Icon.jpg";
@@ -8,7 +7,8 @@ import { Link, useNavigate } from "react-router";
 import { LOCALE_MESSAGE_IDS } from "../libs/src/message";
 import { FormattedMessage, useIntl } from "react-intl";
 import { useGoogleLogin } from "@react-oauth/google";
-import { CloseCircleFilled } from '@ant-design/icons';
+import { CloseCircleFilled } from "@ant-design/icons";
+import { loginApi } from "../api/authApi";
 
 const { Text } = Typography;
 const CustomClearIcon = <CloseCircleFilled style={{ fontSize: 24 }} />;
@@ -20,12 +20,34 @@ export default function LoginForm() {
   const navigate = useNavigate();
   const [api, contextHolder] = notification.useNotification();
 
-  const handleLogin = (values) => {
-    console.log("Received login values:", values);
-    if (values.usernameOrEmail === "user" && values.password === "123") {
-      setIsLoginSuccessful(true);
-    }
-  };
+ const handleLogin = async (values) => {
+  try {
+    const response = await loginApi({
+      usernameOrEmail: values.usernameOrEmail,
+      password: values.password,
+    });
+
+    const token = response.data.token;
+    localStorage.setItem("token", token);
+
+    setIsLoginSuccessful(true);
+
+    api.success({
+      message: "Đăng nhập thành công!",
+      description: "Chào mừng bạn quay lại.",
+      placement: "topRight",
+    });
+  } catch (error) {
+    api.error({
+      message: "Đăng nhập thất bại",
+      description:
+        error.response?.data?.message ||
+        "Vui lòng kiểm tra lại thông tin đăng nhập.",
+      placement: "topRight",
+    });
+  }
+};
+
 
   const handleOtpChange = (e, index) => {
     const value = e.target.value;
@@ -38,7 +60,6 @@ export default function LoginForm() {
 
     setOtp(updatedOtp);
   };
-
   const handleOtpBackspace = (e, index) => {
     if (e.key === "Backspace" && otp[index] === "") {
       if (index > 0) {
@@ -76,7 +97,7 @@ export default function LoginForm() {
         description: "Chào mừng bạn đã quay lại.",
         placement: "topRight",
       });
-     setTimeout(() => {
+      setTimeout(() => {
         navigate("/");
       }, 2000);
     },
@@ -90,33 +111,45 @@ export default function LoginForm() {
   });
 
   return (
-    <div className="w-[617px] max-lg:w-full max-md:w-full h-[698px] flex flex-col gap-[10px] ml-0 pt-25">
+    <div className="w-[617px]  max-lg:w-full  h-[698px] max-sm:h-auto flex flex-col gap-[10px] ml-0 sm:pt-25 ">
       {contextHolder}
 
       {isLoginSuccessful ? (
         <div className="flex flex-col gap-5">
           <p className="text-[48px] w-full h-[86px] font-normal text-center">
-            <FormattedMessage id={LOCALE_MESSAGE_IDS.enter_otp} defaultMessage="Enter OTP" />
+            <FormattedMessage
+              id={LOCALE_MESSAGE_IDS.enter_otp}
+              defaultMessage="Enter OTP"
+            />
           </p>
           <div className="w-full flex justify-center gap-2 mb-30 mt-10">
-            {otp.map((value, index) => (
-              <Input
-                style={{ backgroundColor: "#e8f0fe" }}
-                key={index}
-                id={`otp-input-${index}`}
-                type="text"
-                maxLength={1}
-                value={value}
-                onChange={(e) => handleOtpChange(e, index)}
-                onKeyDown={(e) => handleOtpBackspace(e, index)}
-                className="w-[50px] h-[60px] border bg-[#F6F6F6] text-center custom-input-otp"
-                placeholder=""
-                autoFocus={index === 0}
-              />
-            ))}
+            {otp.map((value, index) => {
+              return (
+                <Input
+                  style={{ backgroundColor: "#e8f0fe" }}
+                  key={index}
+                  id={`otp-input-${index}`}
+                  type="text"
+                  maxLength={1}
+                  value={value}
+                  onChange={(e) => handleOtpChange(e, index)}
+                  onKeyDown={(e) => handleOtpBackspace(e, index)}
+                  className="w-[50px] h-[60px] border bg-[#F6F6F6] text-center custom-input-otp"
+                  placeholder=""
+                  autoFocus={index === 0}
+                />
+              );
+            })}
           </div>
-          <Button type="primary" onClick={handleSubmitOtp} className="w-full btn mb-7">
-            <FormattedMessage id={LOCALE_MESSAGE_IDS.submit_otp} defaultMessage="Submit OTP" />
+          <Button
+            type="primary"
+            onClick={handleSubmitOtp}
+            className="w-full btn mb-7"
+          >
+            <FormattedMessage
+              id={LOCALE_MESSAGE_IDS.submit_otp}
+              defaultMessage="Submit OTP"
+            />
           </Button>
         </div>
       ) : (
@@ -176,6 +209,14 @@ export default function LoginForm() {
                       defaultMessage: "Please enter your password!",
                     }),
                   },
+                  {
+                    min: 6,
+                    message: intl.formatMessage({
+                      id: "password_length_required",
+                      defaultMessage:
+                        "Password must be at least 6 characters long!",
+                    }),
+                  },
                 ]}
               >
                 <Input.Password
@@ -207,7 +248,11 @@ export default function LoginForm() {
             </div>
 
             <Form.Item>
-              <Button type="primary" htmlType="submit" className="w-full btn select-none">
+              <Button
+                type="primary"
+                htmlType="submit"
+                className="w-full btn select-none"
+              >
                 <FormattedMessage id={LOCALE_MESSAGE_IDS.login} />
               </Button>
             </Form.Item>
@@ -234,7 +279,10 @@ export default function LoginForm() {
             <div className="flex-1 flex h-[1px] border-t-1 border-[#DFDFDF]"></div>
           </div>
           <div className="flex justify-center gap-[25px]">
-            <div onClick={() => login()} className="w-[117px] h-[60px] flex justify-center items-center rounded-[10px] ring-1 ring-[#DDDFDD] hover:shadow-lg hover:bg-white hover:ring-[#F6F6F6] cursor-pointer">
+            <div
+              onClick={() => login()}
+              className="w-[117px] h-[60px] flex justify-center items-center rounded-[10px] ring-1 ring-[#DDDFDD] hover:shadow-lg hover:bg-white hover:ring-[#F6F6F6] cursor-pointer"
+            >
               <img src={google} alt="Google" className="w-7 h-7" />
             </div>
             <div className="w-[117px] h-[60px] flex justify-center items-center rounded-[10px] ring-1 ring-[#DDDFDD] hover:shadow-lg hover:bg-white hover:ring-[#F6F6F6] cursor-pointer">

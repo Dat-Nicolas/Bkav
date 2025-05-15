@@ -2,15 +2,15 @@ import GroupUserIcon from "./icons/GroupUserIcon";
 import MoonIcon from "./icons/MoonIcon";
 import SunIcon from "./icons/SunIcon";
 import UserIcon from "./icons/UserIcon";
+import ModalForm from "./ModalForm";
 
 interface ModalMenuProps {
-    openModalLogout: () => void;
     theme: "dark" | "light";
     toggleTheme: () => void;
   }
   
 
-export default function ModalMenu( { openModalLogout, theme, toggleTheme } : ModalMenuProps) {
+export default function ModalMenu( {  theme, toggleTheme } : ModalMenuProps) {
   return (
     <div>
          <div className="p-2 h-[56px]">
@@ -61,13 +61,16 @@ export default function ModalMenu( { openModalLogout, theme, toggleTheme } : Mod
               </div>
             </div>
             <div className={`flex h-[56px] cursor-pointer overflow-hidden rounded-bl-[15px] rounded-br-[15px] items-center p-4 ${ theme === "dark" ? "hover:bg-gray-800" : "hover:bg-gray-100"} `}
-              onClick={openModalLogout}
             >
               <span className="mr-3 dark:text-gray-400">
                 <UserIcon />
               </span>
               <div className="flex justify-between w-full" >
-                <span>Đăng xuất</span>
+              <ModalForm
+              titlebtn = {"Đăng xuất"}
+              titlemodal = {"Đăng xuất"}
+              modaltext="Bạn có chắc chắn muốn đăng xuất không?"
+              />
               </div>
             </div>
           </div>

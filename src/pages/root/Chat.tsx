@@ -1,11 +1,11 @@
 import { useState, useRef } from "react";
+import { Upload, message } from "antd";
+import { useSelector } from "react-redux";
 import ChatContent from "../../Components/ChatContent";
 import AddIcon from "../../Components/icons/AddIcon";
-import DownIcon from "../../Components/icons/DownIcon";
 import EmojiIcon from "../../Components/icons/EmojiIcon";
+import DownIcon from "../../Components/icons/DownIcon";
 import SendIcon from "../../Components/icons/SendIcon";
-import { Upload, message } from "antd";
-import { useThemeStore } from "../../store/themeStore";
 
 const props = {
   action: "https://www.mocky.io/v2/5cc8019d300000980a055e76",
@@ -26,9 +26,8 @@ export default function Chat() {
   const [isEmojiModalOpen, setIsEmojiModalOpen] = useState(false);
   const [messageText, setMessageText] = useState("");
   const inputRef = useRef(null);
-  const theme = useThemeStore((state) => state.theme);
+  const theme = useSelector((state: { theme: { theme: string } }) => state.theme.theme);
 
-  
   const emojis = [
     "😊", "😂", "👍", "❤️", "😍", "😢", "😎", "😡", "🙌", "🔥",
     "😜", "🤔", "🥰", "😱", "😭", "😇", "😴", "😅", "😁", "🤗",
@@ -36,7 +35,6 @@ export default function Chat() {
     "🤒", "🤕", "🤑", "😈", "👻", "💀", "👽", "🤖", "🎃", "😺",
     "😸", "😹", "😻", "😼", "😽", "🙀", "😿", "😾", "🫶", "🫡"
   ];
-  
 
   const toggleEmojiModal = () => {
     setIsEmojiModalOpen(!isEmojiModalOpen);
@@ -80,7 +78,6 @@ export default function Chat() {
       onClick={handleClickOutside}
     >
       <ChatContent ref={chatRef} />
-
       <div className="max-w-[1560px] h-[56px] mx-auto flex items-center justify-between gap-2 px-4 py-2">
         <Upload {...props}>
           <AddIcon />
@@ -93,7 +90,7 @@ export default function Chat() {
             value={messageText}
             onChange={(e) => setMessageText(e.target.value)}
             ref={inputRef}
-            className={`w-full h-[40px] overflow-hidden p-2 px-4 border rounded-full  focus:outline-none focus:ring-1 focus:ring-blue-500 ${theme === "dark" ? "bg-gray-700 text-white" : "text-black bg-[#DBDDE1]"}`}
+            className={`w-full h-[40px] overflow-hidden p-2 px-4 border rounded-full focus:outline-none focus:ring-1 focus:ring-blue-500 ${theme === "dark" ? "bg-gray-700 text-white" : "text-black bg-[#DBDDE1]"}`}
           />
           <button
             className="absolute right-3 top-1/2 transform -translate-y-1/2 emoji-icon"
@@ -102,7 +99,7 @@ export default function Chat() {
             <EmojiIcon />
           </button>
           {isEmojiModalOpen && (
-            <div className="absolute bottom-12 right-0 bg-white border border-gray-200 rounded-lg shadow-lg p-3 grid grid-cols-5 gap-2 max-h-[200px] overflow-y-auto emoji-modal ">
+            <div className="absolute bottom-12 right-0 bg-white border border-gray-200 rounded-lg shadow-lg p-3 grid grid-cols-5 gap-2 max-h-[200px] overflow-y-auto emoji-modal">
               {emojis.map((emoji, index) => (
                 <button
                   key={index}
@@ -117,7 +114,7 @@ export default function Chat() {
         </div>
 
         <div
-          className="absolute h-[40px] w-[40px]  shadow-[0_0_10px_rgba(0,0,0,0.2)] flex justify-center items-center bg-white right-4 bottom-16 rounded-full p-1 cursor-pointer"
+          className="absolute h-[40px] w-[40px] shadow-[0_0_10px_rgba(0,0,0,0.2)] flex justify-center items-center bg-white right-4 bottom-16 rounded-full p-1 cursor-pointer"
           onClick={scrollToBottom}
         >
           <DownIcon />

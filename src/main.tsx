@@ -1,12 +1,13 @@
 import "@/assets/styles/main.css";
-import { StrictMode, useState, createContext, useContext, useEffect } from "react";
+import { StrictMode, createContext, useContext, useEffect, useState } from "react";
 import { createRoot } from "react-dom/client";
-import { RouterProvider } from "react-router"; 
+import { RouterProvider } from "react-router";
 import router from "./router";
-import { MESSAGES, LOCALES } from "../src/libs/src/message";
+import { MESSAGES, LOCALES } from "./libs/src/message";
 import { IntlProvider } from "react-intl";
 import { GoogleOAuthProvider } from "@react-oauth/google";
-import { useThemeStore } from "./store/themeStore";
+import { Provider, useDispatch, useSelector } from "react-redux";
+import { store } from "./store/themeSlice";
 
 // Language Context
 const LanguageContext = createContext<{
@@ -32,8 +33,8 @@ export const useTheme = () => useContext(ThemeContext);
 
 const App = () => {
   const [language, setLanguage] = useState(LOCALES.VIETNAM);
-  const theme = useThemeStore((state) => state.theme);
-  const toggleTheme = useThemeStore((state) => state.toggleTheme);
+  const theme = useSelector((state: { theme: { theme: string } }) => state.theme.theme);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     const root = window.document.documentElement;
@@ -51,7 +52,7 @@ const App = () => {
 
   return (
     <GoogleOAuthProvider clientId="481653149870-6pt1h942udqrn5esa21rhupusfgqnba2.apps.googleusercontent.com">
-      <ThemeContext.Provider value={{ theme, toggleTheme }}>
+      <ThemeContext.Provider value={{ theme, toggleTheme: () => dispatch(toggleTheme()) }}>
         <LanguageContext.Provider value={{ language, setLanguage }}>
           <IntlProvider locale={language} messages={messages[language]}>
             <RouterProvider router={router} />
@@ -64,6 +65,8 @@ const App = () => {
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
-    <App />
+    <Provider store={store}>
+      <App />
+    </Provider>
   </StrictMode>
 );

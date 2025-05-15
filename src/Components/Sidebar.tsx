@@ -6,10 +6,9 @@ import LeftIcon from "./icons/LeftIcon";
 import { chatList } from "../pages/data/ChatData";
 import { useState } from "react";
 import NoSoundIcon from "./icons/NoSoundIcon";
-import { useThemeStore } from "../store/themeStore";
-import Logout from "./Logout";
 import ModalMenu from "./ModalMenu";
-import { notification } from "antd";
+import { useSelector, useDispatch } from "react-redux";
+import { toggleTheme } from "../store/themeSlice";
 
 export default function Sidebar() {
   const [searchTerm, setSearchTerm] = useState("");
@@ -18,11 +17,10 @@ export default function Sidebar() {
   const [isModalLogout, setIsModalLogout] = useState(false);
   const [isSearchModalOpen, setIsSearchModalOpen] = useState(false);
   const [viewedChats, setViewedChats] = useState(new Set());
-  const [api, contextHolder] = notification.useNotification();
 
-  // Sử dụng theme từ Zustand
-  const theme = useThemeStore((state) => state.theme);
-  const toggleTheme = useThemeStore((state) => state.toggleTheme);
+  // Use RTK for theme
+  const theme = useSelector((state: { theme: { theme: string } }) => state.theme.theme);
+  const dispatch = useDispatch();
 
   const handleClear = () => {
     setSearchTerm("");
@@ -119,19 +117,8 @@ export default function Sidebar() {
             >
               <ModalMenu
                 theme={theme}
-                openModalLogout={openModalLogout}
-                toggleTheme={toggleTheme}
+                toggleTheme={() => dispatch(toggleTheme())}
               />
-
-              {isModalLogout && (
-                <Logout
-                  api={api}
-                  contextHolder={contextHolder}
-                  isModalLogout={isModalLogout}
-                  setIsModalLogout={setIsModalLogout}
-                  theme={theme}
-                />
-              )}
             </div>
           )}
         </div>
@@ -148,19 +135,8 @@ export default function Sidebar() {
         >
           <ModalMenu
             theme={theme}
-            openModalLogout={openModalLogout}
-            toggleTheme={toggleTheme}
+            toggleTheme={() => dispatch(toggleTheme())}
           />
-
-          {isModalLogout && (
-            <Logout
-              api={api}
-              contextHolder={contextHolder}
-              isModalLogout={isModalLogout}
-              setIsModalLogout={setIsModalLogout}
-              theme={theme}
-            />
-          )}
         </div>
       )}
 
